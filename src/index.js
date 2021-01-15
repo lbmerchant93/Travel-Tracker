@@ -23,8 +23,10 @@ window.addEventListener("load", gatherAPIInfo)
 function gatherAPIInfo() {
   Promise.all([retrieveDestinations(), retrieveTravelers(), retrieveTrips()])
   .then(data => {
+    allDestinations = data[0];
     allTravelers = data[1];
-
+    allTrips = data[3];
+    displayFetchedDestinations(allDestinations);
     displayFetchedTravelers(allTravelers);
   })
 }
@@ -52,6 +54,14 @@ function retrieveTrips() {
       })
 }
 
+// Display all destinations
+function displayFetchedDestinations(destinationsData) {
+  destinationsData.destinations.forEach(destination => {
+    destinationsDOM.innerHTML +=
+    `<p>${destination.id}, ${destination.destination}, ${destination.estimatedLodgingCostPerDay} </p>`
+  })
+}
+
 // Display all travelers
 function displayFetchedTravelers(travelersData) {
   travelersData.travelers.forEach(traveler => {
@@ -61,8 +71,13 @@ function displayFetchedTravelers(travelersData) {
 }
 
 // Display all trips
+function displayFetchedTrips(travelersData) {
+  travelersData.travelers.forEach(traveler => {
+    travelersDOM.innerHTML +=
+    `<p>${traveler.id}, ${traveler.name}, ${traveler.travelerType} </p>`
+  })
+}
 
-// Display all destinations
 
 
 
