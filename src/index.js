@@ -25,9 +25,10 @@ function gatherAPIInfo() {
   .then(data => {
     allDestinations = data[0];
     allTravelers = data[1];
-    allTrips = data[3];
+    allTrips = data[2];
     displayFetchedDestinations(allDestinations);
     displayFetchedTravelers(allTravelers);
+    displayFetchedTrips(allTrips);
   })
 }
 
@@ -71,10 +72,10 @@ function displayFetchedTravelers(travelersData) {
 }
 
 // Display all trips
-function displayFetchedTrips(travelersData) {
-  travelersData.travelers.forEach(traveler => {
-    travelersDOM.innerHTML +=
-    `<p>${traveler.id}, ${traveler.name}, ${traveler.travelerType} </p>`
+function displayFetchedTrips(tripsData) {
+  tripsData.trips.forEach(trip => {
+    tripsDOM.innerHTML +=
+    `<p>${trip.id}, ${trip.date}, ${trip.status} </p>`
   })
 }
 
