@@ -11,9 +11,11 @@ import './images/turing-logo.png'
 let allDestinations;
 let allTravelers;
 let allTrips;
+let currentTraveler;
 
 // QuerySelectors
 let destinationsDOM = document.querySelector(".destinations");
+let specificTravelerDOM = document.querySelector(".specific-traveler");
 let travelersDOM = document.querySelector(".travelers");
 let tripsDOM = document.querySelector(".trips");
 
@@ -21,18 +23,29 @@ let tripsDOM = document.querySelector(".trips");
 window.addEventListener("load", gatherAPIInfo)
 
 function gatherAPIInfo() {
-  Promise.all([retrieveDestinations(), retrieveTravelers(), retrieveTrips()])
+  Promise.all([retrieveDestinations(), retrieveTravelers(), retrieveTrips(), retrieveSpecificTraveler(randomTraveler)])
   .then(data => {
     allDestinations = data[0];
     allTravelers = data[1];
     allTrips = data[2];
+    currentTraveler = data[3];
     displayFetchedDestinations(allDestinations);
     displayFetchedTravelers(allTravelers);
     displayFetchedTrips(allTrips);
+    displaySpecificTraveler(currentTraveler);
   })
 }
-
+let randomTraveler = Math.floor(Math.random() * Math.floor(40));
+console.log(randomTraveler);
 // Fetch Data
+function retrieveSpecificTraveler(travelerId) {
+  return fetch(`http://localhost:3001/api/v1/travelers/${travelerId}`)
+      .then(response => response.json())
+      .catch(err => {
+        alert("Sorry! We are having trouble getting the data, try again later!")
+      })
+}
+
 function retrieveDestinations() {
   return fetch("http://localhost:3001/api/v1/destinations")
       .then(response => response.json())
@@ -40,6 +53,7 @@ function retrieveDestinations() {
         alert("Sorry! We are having trouble getting the data, try again later!")
       })
 }
+
 function retrieveTravelers() {
   return fetch("http://localhost:3001/api/v1/travelers")
       .then(response => response.json())
@@ -53,6 +67,11 @@ function retrieveTrips() {
       .catch(err => {
         alert("Sorry! We are having trouble getting the data, try again later!")
       })
+}
+// Display specifc traveler
+function displaySpecificTraveler(specificTravelerData) {
+  specificTravelerDOM.innerHTML +=
+  `<p>${specificTravelerData.id}, ${specificTravelerData.name}, ${specificTravelerData.travelerType}`
 }
 
 // Display all destinations
