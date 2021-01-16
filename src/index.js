@@ -45,6 +45,7 @@ function gatherAPIInfo() {
     // displayFetchedTrips(allTrips);
     // displaySpecificTraveler(currentTraveler);
   })
+  getTodaysDate()
 }
 let randomTraveler = Math.floor(Math.random() * Math.floor(40));
 
@@ -52,6 +53,12 @@ let randomTraveler = Math.floor(Math.random() * Math.floor(40));
 function welcomeTraveler(currentTraveler) {
   let welcomeMessage = document.querySelector(".welcome-message");
   welcomeMessage.innerText = `Welcome back ${currentTraveler.getFirstName()}!!`
+}
+
+function getTodaysDate() {
+  let todaysDate = document.querySelector(".todays-date");
+  let date = new Date().toLocaleDateString("en-US").split("/");
+  todaysDate.innerText = `Today's Date: ${date[0]}/${date[1]}/${date[2]}`;
 }
 
 
