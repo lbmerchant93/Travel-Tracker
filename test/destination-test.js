@@ -7,7 +7,7 @@ const sampleDestinationData = sampleData.sampleDestinationData;
 
 describe('Destination', () => {
   let destination1, destination2;
-  
+
   beforeEach(() => {
     destination1 = new Destination(sampleDestinationData[0]);
     destination2 = new Destination(sampleDestinationData[1]);
@@ -25,7 +25,7 @@ describe('Destination', () => {
     expect(destination1.image).to.equal("https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80");
     expect(destination1.alt).to.equal("overview of city buildings with a clear sky");
 
-    expect(destination2.id).to.equal(1);
+    expect(destination2.id).to.equal(2);
     expect(destination2.destination).to.equal("Stockholm, Sweden");
     expect(destination2.estimatedLodgingCostPerDay).to.equal(100);
     expect(destination2.estimatedFlightCostPerPerson).to.equal(780);
