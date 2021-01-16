@@ -1,11 +1,11 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
+// API Data
+import fetchData from './fetchRequest.js'
+
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+// import './images/turing-logo.png'
 
 // Global Variables
 let allDestinations;
@@ -23,52 +23,20 @@ let currentTraveler;
 // window.addEventListener("load", gatherAPIInfo)
 
 function gatherAPIInfo() {
-  Promise.all([retrieveDestinations(), retrieveTravelers(), retrieveTrips(), retrieveSpecificTraveler(randomTraveler)])
+  Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(randomTraveler)])
   .then(data => {
     allDestinations = data[0];
     allTravelers = data[1];
     allTrips = data[2];
     currentTraveler = data[3];
-    displayFetchedDestinations(allDestinations);
-    displayFetchedTravelers(allTravelers);
-    displayFetchedTrips(allTrips);
-    displaySpecificTraveler(currentTraveler);
+    // displayFetchedDestinations(allDestinations);
+    // displayFetchedTravelers(allTravelers);
+    // displayFetchedTrips(allTrips);
+    // displaySpecificTraveler(currentTraveler);
   })
 }
 let randomTraveler = Math.floor(Math.random() * Math.floor(40));
 
-// Fetch Data
-function retrieveSpecificTraveler(travelerId) {
-  return fetch(`http://localhost:3001/api/v1/travelers/${travelerId}`)
-      .then(response => response.json())
-      .catch(err => {
-        alert("Sorry! We are having trouble getting the data, try again later!")
-      })
-}
-
-function retrieveDestinations() {
-  return fetch("http://localhost:3001/api/v1/destinations")
-      .then(response => response.json())
-      .catch(err => {
-        alert("Sorry! We are having trouble getting the data, try again later!")
-      })
-}
-
-function retrieveTravelers() {
-  return fetch("http://localhost:3001/api/v1/travelers")
-      .then(response => response.json())
-      .catch(err => {
-        alert("Sorry! We are having trouble getting the data, try again later!")
-      })
-}
-
-function retrieveTrips() {
-  return fetch("http://localhost:3001/api/v1/trips")
-      .then(response => response.json())
-      .catch(err => {
-        alert("Sorry! We are having trouble getting the data, try again later!")
-      })
-}
 // Display specifc traveler
 function displaySpecificTraveler(specificTravelerData) {
   specificTravelerDOM.innerHTML +=
