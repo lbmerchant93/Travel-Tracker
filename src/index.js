@@ -39,20 +39,23 @@ function gatherAPIInfo() {
     currentTraveler = new Traveler(data[3]);
     console.log(randomTraveler)
     console.log(currentTraveler)
-    welcomeTraveler(currentTraveler)
+    greetTraveler(currentTraveler)
     // displayFetchedDestinations(allDestinations);
     // displayFetchedTravelers(allTravelers);
     // displayFetchedTrips(allTrips);
     // displaySpecificTraveler(currentTraveler);
   })
-  getTodaysDate()
 }
 let randomTraveler = Math.floor(Math.random() * Math.floor(40));
 
 // Greet Traveler
-function welcomeTraveler(currentTraveler) {
+function greetTraveler(traveler) {
+  welcomeTraveler(traveler);
+  getTodaysDate();
+}
+function welcomeTraveler(traveler) {
   let welcomeMessage = document.querySelector(".welcome-message");
-  welcomeMessage.innerText = `Welcome back ${currentTraveler.getFirstName()}!!`
+  welcomeMessage.innerText = `Welcome back ${traveler.getFirstName()}!!`
 }
 
 function getTodaysDate() {
