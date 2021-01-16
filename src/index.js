@@ -14,13 +14,13 @@ let allTrips;
 let currentTraveler;
 
 // QuerySelectors
-let destinationsDOM = document.querySelector(".destinations");
-let specificTravelerDOM = document.querySelector(".specific-traveler");
-let travelersDOM = document.querySelector(".travelers");
-let tripsDOM = document.querySelector(".trips");
+// let destinationsDOM = document.querySelector(".destinations");
+// let specificTravelerDOM = document.querySelector(".specific-traveler");
+// let travelersDOM = document.querySelector(".travelers");
+// let tripsDOM = document.querySelector(".trips");
 
 // Eventlisteners
-window.addEventListener("load", gatherAPIInfo)
+// window.addEventListener("load", gatherAPIInfo)
 
 function gatherAPIInfo() {
   Promise.all([retrieveDestinations(), retrieveTravelers(), retrieveTrips(), retrieveSpecificTraveler(randomTraveler)])
