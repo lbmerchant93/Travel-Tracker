@@ -6,12 +6,12 @@ import sampleData from '../test/sampleData.js'
 const sampleTravelerData = sampleData.sampleTravelerData;
 const sampleTripData = sampleData.sampleTripData;
 
-describe('See if the tests are running', () => {
+describe('Traveler', () => {
   let traveler1, traveler2, trip1, trip2;
 
   beforeEach(() => {
     traveler1 = new Traveler(sampleTravelerData[0]);
-    traveler1 = new Traveler(sampleTravelerData[1]);
+    traveler2 = new Traveler(sampleTravelerData[1]);
     trip1 = sampleTripData[0];
     trip2 = sampleTripData[1];
   });
@@ -53,7 +53,7 @@ describe('See if the tests are running', () => {
         }]);
 
         traveler2.addTrip('pastTrips', trip2);
-        expect(traveler1.currentTrips).to.deep.equal([{
+        expect(traveler2.pastTrips).to.deep.equal([{
          "id": 166,
          "userID": 2,
          "destinationID": 7,
