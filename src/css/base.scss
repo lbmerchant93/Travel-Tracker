@@ -9,11 +9,11 @@ body {
   font-family: $primary-font;
   color: $primary-color;
   display: grid;
-  grid-template-column: 1fr 5fr;
+  grid-template-column: 1fr 4fr 4fr;
   grid-template-areas:
-  "header header"
-  "aside main"
-  "footer footer";
+  "header header header"
+  "aside main main"
+  "footer footer footer";
   height: 100vh;
   width: 100vw;
   margin: 0;
@@ -39,13 +39,19 @@ header {
 aside {
   grid-area: aside;
   padding: 10px 10px 0 10px;
-  border: 1px solid rgb(140, 173, 167);
   border-left:  none;
 }
 
 main {
   grid-area: main;
   padding: 10px 10px 0 10px;
+  border: 1px solid rgb(140, 173, 167)
+}
+
+.upcoming-trips-title,
+.pending-trips-title,
+.past-trips-title {
+  border: 1px solid rgb(140, 173, 167);
 }
 
 footer {
