@@ -2,7 +2,15 @@
 import './css/base.scss';
 
 // API Data
-import fetchData from './fetchRequest.js'
+import fetchData from './fetchRequest.js';
+
+// DOM Updates
+// import domUpdates from './domUpdates.js';
+
+// Classes
+import Destination from './destination.js';
+import Traveler from './traveler.js';
+import Trip from './trip.js';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png'
@@ -20,7 +28,7 @@ let currentTraveler;
 // let tripsDOM = document.querySelector(".trips");
 
 // Eventlisteners
-// window.addEventListener("load", gatherAPIInfo)
+window.addEventListener("load", gatherAPIInfo)
 
 function gatherAPIInfo() {
   Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(randomTraveler)])
@@ -28,7 +36,10 @@ function gatherAPIInfo() {
     allDestinations = data[0];
     allTravelers = data[1];
     allTrips = data[2];
-    currentTraveler = data[3];
+    currentTraveler = new Traveler(data[3]);
+    console.log(randomTraveler)
+    console.log(currentTraveler)
+    welcomeTraveler(currentTraveler)
     // displayFetchedDestinations(allDestinations);
     // displayFetchedTravelers(allTravelers);
     // displayFetchedTrips(allTrips);
@@ -36,6 +47,17 @@ function gatherAPIInfo() {
   })
 }
 let randomTraveler = Math.floor(Math.random() * Math.floor(40));
+
+// Greet Traveler
+function welcomeTraveler(currentTraveler) {
+  let welcomeMessage = document.querySelector(".welcome-message");
+  welcomeMessage.innerText = `Welcome back ${currentTraveler.getFirstName()}!!`
+}
+
+
+
+
+
 
 // Display specifc traveler
 function displaySpecificTraveler(specificTravelerData) {
