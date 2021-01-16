@@ -36,7 +36,7 @@ function gatherAPIInfo() {
   })
 }
 let randomTraveler = Math.floor(Math.random() * Math.floor(40));
-console.log(randomTraveler);
+
 // Fetch Data
 function retrieveSpecificTraveler(travelerId) {
   return fetch(`http://localhost:3001/api/v1/travelers/${travelerId}`)
@@ -61,6 +61,7 @@ function retrieveTravelers() {
         alert("Sorry! We are having trouble getting the data, try again later!")
       })
 }
+
 function retrieveTrips() {
   return fetch("http://localhost:3001/api/v1/trips")
       .then(response => response.json())
