@@ -8,6 +8,10 @@ class Traveler {
     this.pendingTrips = [];
     this.pastTrips = [];
   }
+
+  addTrip(tripTiming, tripObject) {
+    this[tripTiming].push(tripObject);
+  }
 }
 
 
