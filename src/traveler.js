@@ -9,6 +9,12 @@ class Traveler {
     this.pastTrips = [];
   }
 
+  getFirstName() {
+    let splitName = this.name.split(' ', 2);
+    let firstName = splitName[0];
+    return firstName;
+  }
+
   addTrip(tripTiming, tripObject) {
     this[tripTiming].push(tripObject);
   }
