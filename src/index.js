@@ -22,6 +22,9 @@ let allTrips;
 let currentTraveler;
 let travelerTrips;
 let travelerDestinations;
+let pastTrips = [];
+let upcomingTrips = [];
+let currentTrip;
 
 // QuerySelectors
 // let destinationsDOM = document.querySelector(".destinations");
@@ -39,15 +42,10 @@ function gatherAPIInfo() {
       allTravelers = data[1];
       allTrips = data[2];
       currentTraveler = new Traveler(data[3]);
-      // console.log(randomTraveler)
-      // console.log(currentTraveler)
-      // greetTraveler(currentTraveler);
-      // console.log(allTrips.trips)
       filterTripsForTraveler(allTrips, currentTraveler);
-      // console.log(allDestinations.destinations)
       filterDestinationsByTravelerTrips(allDestinations, travelerTrips);
       getTravelerPendingTrips();
-      getTravelerPastTrip();
+      getTravelerPastTrips();
       greetTraveler(currentTraveler);
     })
 }
@@ -94,7 +92,7 @@ function filterTripsForTraveler(totalTrips, currentTraveler) {
     let tripInstantiation = new Trip(trip);
     return tripInstantiation;
   })
-  console.log(travelerTrips)
+  // console.log(travelerTrips)
 };
 
 function getTravelerPendingTrips() {
@@ -104,24 +102,28 @@ function getTravelerPendingTrips() {
       pendingTrips.push(trip)
     }
   })
-  console.log(pendingTrips, 'A')
+  // console.log(pendingTrips, 'A')
   return pendingTrips;
 }
-function getTravelerPastTrip() {
-  let pastTrips = [];
+function getTravelerPastTrips() {
   travelerTrips.forEach(trip => {
     let dateSplit = trip.date.split("/");
-    let dateMil = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2]).getTime();
+    let startDate = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2])
+    let tripEnd = startDate.setDate(startDate.getDate() + trip.duration);
+    let example = new Date(dateSplit[0], (dateSplit[1]-1), (dateSplit[2]))
+    let startInMil = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2]).getTime();
     let today = new Date().getTime();
-    if (dateMil <= today) {
+    if (startInMil < today && today < tripEnd) {
+      currentTrip = trip;
+    } else if (startInMil > today) {
+      upcomingTrips.push(trip);
+    } else {
       pastTrips.push(trip);
     }
-    // console.log(dateSplit)
-    // console.log(dateMil)
-    // console.log(today)
-    // console.log(pastTrips)
   })
-  return pastTrips;
+  console.log(currentTrip, 'current')
+  console.log(pastTrips, 'past')
+  console.log(upcomingTrips, 'upcoming')
 }
 
 // Filter Destinations Matching Traveler's Trips
@@ -137,7 +139,7 @@ function filterDestinationsByTravelerTrips(totalDestinations, tripsForTraveler) 
   travelerDestinations = foundDestinations.map(dest => {
     return new Destination(dest)
   })
-  console.log(travelerDestinations)
+  // console.log(travelerDestinations)
 };
 
 
