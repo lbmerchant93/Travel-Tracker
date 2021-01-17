@@ -20,6 +20,7 @@ let allDestinations;
 let allTravelers;
 let allTrips;
 let currentTraveler;
+let travelerTrips;
 
 // QuerySelectors
 // let destinationsDOM = document.querySelector(".destinations");
@@ -69,10 +70,13 @@ function getTodaysDate() {
 
 // Filter Trips Matching Traveler's id
 function filterTripsForTraveler(totalTrips, currentTraveler) {
-  let travelerTrips = totalTrips.trips.filter(trip => {
+  let foundTrips = totalTrips.trips.filter(trip => {
     return trip.userID === currentTraveler.id;
   })
-  return travelerTrips
+  travelerTrips = foundTrips.map(trip => {
+    let tripInstantiation = new Trip(trip);
+    return tripInstantiation;
+  })
 }
 
 
