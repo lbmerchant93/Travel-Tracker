@@ -24,6 +24,7 @@ let travelerTrips;
 let travelerDestinations;
 let pastTrips = [];
 let upcomingTrips = [];
+let pendingTrips = [];
 let currentTrip;
 
 // QuerySelectors
@@ -107,14 +108,12 @@ function catagorizeTrips() {
 }
 
 function getTravelerPendingTrips() {
-  let pendingTrips = [];
   travelerTrips.forEach(trip => {
     if(trip.status === "pending"){
       pendingTrips.push(trip)
     }
   })
   // console.log(pendingTrips, 'A')
-  return pendingTrips;
 }
 
 function assignTripsToCorrectCatagory() {
@@ -156,9 +155,10 @@ function filterDestinationsByTravelerTrips() {
 // Call domUpdates functions on load
 function displayTravelerTrips() {
   domUpdates.displayCurrentTravelerTrip(currentTrip, travelerDestinations);
-  domUpdates.displayUpcomingTrips(upcomingTrips, travelerDestinations)
+  domUpdates.displayUpcomingTrips(upcomingTrips, travelerDestinations);
+  domUpdates.displayPendingTrips(pendingTrips, travelerDestinations);
   // console.log(currentTrip)
-  console.log(upcomingTrips)
+  // console.log(upcomingTrips)
 }
 
 
