@@ -5,7 +5,7 @@ import './css/base.scss';
 import fetchData from './fetchRequest.js';
 
 // DOM Updates
-// import domUpdates from './domUpdates.js';
+import domUpdates from './domUpdates.js';
 
 // Classes
 import Destination from './destination.js';
@@ -41,30 +41,38 @@ function gatherAPIInfo() {
       currentTraveler = new Traveler(data[3]);
       // console.log(randomTraveler)
       // console.log(currentTraveler)
-      greetTraveler(currentTraveler);
+      // greetTraveler(currentTraveler);
       // console.log(allTrips.trips)
       filterTripsForTraveler(allTrips, currentTraveler);
-      console.log(allDestinations.destinations)
+      // console.log(allDestinations.destinations)
       filterDestinationsByTravelerTrips(allDestinations, travelerTrips);
+      greetTraveler(currentTraveler);
     })
 }
 let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
 
 // Greet Traveler
 function greetTraveler(traveler) {
-  welcomeTraveler(traveler);
-  getTodaysDate();
+  domUpdates.welcomeTraveler(traveler);
+  domUpdates.getTodaysDate();
+  travelerTotalSpent();
 }
 
-function welcomeTraveler(traveler) {
-  let welcomeMessage = document.querySelector(".welcome-message");
-  welcomeMessage.innerText = `Welcome back ${traveler.getFirstName()}!!`
-}
-
-function getTodaysDate() {
-  let todaysDate = document.querySelector(".todays-date");
-  let date = new Date().toLocaleDateString("en-US").split("/");
-  todaysDate.innerText = `Today's Date: ${date[0]}/${date[1]}/${date[2]}`;
+function travelerTotalSpent() {
+  let totalSpent = document.querySelector(".total-spent");
+  let spent = travelerTrips.reduce((acc, trip) => {
+    travelerDestinations.forEach(dest => {
+      if(trip.destinationID === dest.id){
+        let flightTotal = trip.travelers * dest.estimatedFlightCostPerPerson;
+        let lodgingTotal = trip.duration * dest.estimatedLodgingCostPerDay;
+        acc += flightTotal;
+        acc += lodgingTotal;
+      }
+    })
+    return acc;
+  }, 0);
+  console.log(spent);
+  return spent;
 }
 
 // Filter Trips Matching Traveler's id
@@ -98,35 +106,35 @@ function filterDestinationsByTravelerTrips(totalDestinations, tripsForTraveler) 
 
 
 
-// Display specifc traveler
-function displaySpecificTraveler(specificTravelerData) {
-  specificTravelerDOM.innerHTML +=
-    `<p>${specificTravelerData.id}, ${specificTravelerData.name}, ${specificTravelerData.travelerType}`
-}
-
-// Display all destinations
-function displayFetchedDestinations(destinationsData) {
-  destinationsData.destinations.forEach(destination => {
-    destinationsDOM.innerHTML +=
-      `<p>${destination.id}, ${destination.destination}, ${destination.estimatedLodgingCostPerDay} </p>`
-  })
-}
-
-// Display all travelers
-function displayFetchedTravelers(travelersData) {
-  travelersData.travelers.forEach(traveler => {
-    travelersDOM.innerHTML +=
-      `<p>${traveler.id}, ${traveler.name}, ${traveler.travelerType} </p>`
-  })
-}
-
-// Display all trips
-function displayFetchedTrips(tripsData) {
-  tripsData.trips.forEach(trip => {
-    tripsDOM.innerHTML +=
-      `<p>${trip.id}, ${trip.date}, ${trip.status} </p>`
-  })
-}
+// // Display specifc traveler
+// function displaySpecificTraveler(specificTravelerData) {
+//   specificTravelerDOM.innerHTML +=
+//     `<p>${specificTravelerData.id}, ${specificTravelerData.name}, ${specificTravelerData.travelerType}`
+// }
+//
+// // Display all destinations
+// function displayFetchedDestinations(destinationsData) {
+//   destinationsData.destinations.forEach(destination => {
+//     destinationsDOM.innerHTML +=
+//       `<p>${destination.id}, ${destination.destination}, ${destination.estimatedLodgingCostPerDay} </p>`
+//   })
+// }
+//
+// // Display all travelers
+// function displayFetchedTravelers(travelersData) {
+//   travelersData.travelers.forEach(traveler => {
+//     travelersDOM.innerHTML +=
+//       `<p>${traveler.id}, ${traveler.name}, ${traveler.travelerType} </p>`
+//   })
+// }
+//
+// // Display all trips
+// function displayFetchedTrips(tripsData) {
+//   tripsData.trips.forEach(trip => {
+//     tripsDOM.innerHTML +=
+//       `<p>${trip.id}, ${trip.date}, ${trip.status} </p>`
+//   })
+// }
 
 
 
