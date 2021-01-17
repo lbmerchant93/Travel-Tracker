@@ -156,7 +156,9 @@ function filterDestinationsByTravelerTrips() {
 // Call domUpdates functions on load
 function displayTravelerTrips() {
   domUpdates.displayCurrentTravelerTrip(currentTrip, travelerDestinations);
-  console.log(currentTrip)
+  domUpdates.displayUpcomingTrips(upcomingTrips, travelerDestinations)
+  // console.log(currentTrip)
+  console.log(upcomingTrips)
 }
 
 
