@@ -77,20 +77,23 @@ function filterTripsForTraveler(totalTrips, currentTraveler) {
     return tripInstantiation;
   })
   console.log(travelerTrips)
-}
+};
 
 // Filter Destinations Matching Traveler's Trips
 function filterDestinationsByTravelerTrips(totalDestinations, tripsForTraveler) {
   let foundDestinations = [];
   tripsForTraveler.forEach(trip => {
-      totalDestinations.destinations.forEach(dest => {
-        if (dest.id === trip.destinationID) {
-          foundDestinations.push(dest);
-        }
-      })
+    totalDestinations.destinations.forEach(dest => {
+      if (dest.id === trip.destinationID) {
+        foundDestinations.push(dest);
+      }
     })
-  console.log(foundDestinations)
-}
+  })
+  travelerDestinations = foundDestinations.map(dest => {
+    return new Destination(dest)
+  })
+  console.log(travelerDestinations)
+};
 
 
 
