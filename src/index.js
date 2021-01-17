@@ -21,6 +21,7 @@ let allTravelers;
 let allTrips;
 let currentTraveler;
 let travelerTrips;
+let travelerDestinations;
 
 // QuerySelectors
 // let destinationsDOM = document.querySelector(".destinations");
@@ -33,23 +34,21 @@ window.addEventListener("load", gatherAPIInfo)
 
 function gatherAPIInfo() {
   Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(randomTraveler)])
-  .then(data => {
-    allDestinations = data[0];
-    allTravelers = data[1];
-    allTrips = data[2];
-    currentTraveler = new Traveler(data[3]);
-    console.log(randomTraveler)
-    console.log(currentTraveler)
-    greetTraveler(currentTraveler)
-    console.log(allTrips.trips)
-    filterTripsForTraveler(allTrips, currentTraveler)
-    // displayFetchedDestinations(allDestinations);
-    // displayFetchedTravelers(allTravelers);
-    // displayFetchedTrips(allTrips);
-    // displaySpecificTraveler(currentTraveler);
-  })
+    .then(data => {
+      allDestinations = data[0];
+      allTravelers = data[1];
+      allTrips = data[2];
+      currentTraveler = new Traveler(data[3]);
+      // console.log(randomTraveler)
+      // console.log(currentTraveler)
+      greetTraveler(currentTraveler);
+      // console.log(allTrips.trips)
+      filterTripsForTraveler(allTrips, currentTraveler);
+      console.log(allDestinations.destinations)
+      filterDestinationsByTravelerTrips(allDestinations, travelerTrips);
+    })
 }
-let randomTraveler = Math.floor(Math.random() * Math.floor(40)) +1;
+let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
 
 // Greet Traveler
 function greetTraveler(traveler) {
@@ -77,6 +76,20 @@ function filterTripsForTraveler(totalTrips, currentTraveler) {
     let tripInstantiation = new Trip(trip);
     return tripInstantiation;
   })
+  console.log(travelerTrips)
+}
+
+// Filter Destinations Matching Traveler's Trips
+function filterDestinationsByTravelerTrips(totalDestinations, tripsForTraveler) {
+  let foundDestinations = [];
+  tripsForTraveler.forEach(trip => {
+      totalDestinations.destinations.forEach(dest => {
+        if (dest.id === trip.destinationID) {
+          foundDestinations.push(dest);
+        }
+      })
+    })
+  console.log(foundDestinations)
 }
 
 
@@ -85,14 +98,14 @@ function filterTripsForTraveler(totalTrips, currentTraveler) {
 // Display specifc traveler
 function displaySpecificTraveler(specificTravelerData) {
   specificTravelerDOM.innerHTML +=
-  `<p>${specificTravelerData.id}, ${specificTravelerData.name}, ${specificTravelerData.travelerType}`
+    `<p>${specificTravelerData.id}, ${specificTravelerData.name}, ${specificTravelerData.travelerType}`
 }
 
 // Display all destinations
 function displayFetchedDestinations(destinationsData) {
   destinationsData.destinations.forEach(destination => {
     destinationsDOM.innerHTML +=
-    `<p>${destination.id}, ${destination.destination}, ${destination.estimatedLodgingCostPerDay} </p>`
+      `<p>${destination.id}, ${destination.destination}, ${destination.estimatedLodgingCostPerDay} </p>`
   })
 }
 
@@ -100,7 +113,7 @@ function displayFetchedDestinations(destinationsData) {
 function displayFetchedTravelers(travelersData) {
   travelersData.travelers.forEach(traveler => {
     travelersDOM.innerHTML +=
-    `<p>${traveler.id}, ${traveler.name}, ${traveler.travelerType} </p>`
+      `<p>${traveler.id}, ${traveler.name}, ${traveler.travelerType} </p>`
   })
 }
 
@@ -108,13 +121,9 @@ function displayFetchedTravelers(travelersData) {
 function displayFetchedTrips(tripsData) {
   tripsData.trips.forEach(trip => {
     tripsDOM.innerHTML +=
-    `<p>${trip.id}, ${trip.date}, ${trip.status} </p>`
+      `<p>${trip.id}, ${trip.date}, ${trip.status} </p>`
   })
 }
-
-
-
-
 
 
 
