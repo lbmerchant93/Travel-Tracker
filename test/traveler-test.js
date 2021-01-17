@@ -39,7 +39,13 @@ describe('Traveler', () => {
       expect(traveler2.pastTrips).to.deep.equal([]);
     })
 
-    it('shoud have a method to add to the correct array given the array\'s property name and trip object', () => {
+    it('should have a method that returns just the first name', () => {
+      expect(traveler1.getFirstName()).to.equal("Ham");
+
+      expect(traveler2.getFirstName()).to.equal("Rachael");
+    })
+
+    it('should have a method to add to the correct array given the array\'s property name and trip object', () => {
       traveler1.addTrip('currentTrips', trip1);
       expect(traveler1.currentTrips).to.deep.equal([{
           "id": 117,

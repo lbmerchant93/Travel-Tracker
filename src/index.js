@@ -1,17 +1,31 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
+// API Data
+import fetchData from './fetchRequest.js';
+
+// DOM Updates
+import domUpdates from './domUpdates.js';
+
+// Classes
+import Destination from './destination.js';
+import Traveler from './traveler.js';
+import Trip from './trip.js';
+
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+// import './images/turing-logo.png'
 
 // Global Variables
 let allDestinations;
 let allTravelers;
 let allTrips;
 let currentTraveler;
+let travelerTrips;
+let travelerDestinations;
+let pastTrips = [];
+let upcomingTrips = [];
+let pendingTrips = [];
+let currentTrip;
 
 // QuerySelectors
 // let destinationsDOM = document.querySelector(".destinations");
@@ -20,87 +34,132 @@ let currentTraveler;
 // let tripsDOM = document.querySelector(".trips");
 
 // Eventlisteners
-// window.addEventListener("load", gatherAPIInfo)
+window.addEventListener("load", gatherAPIInfo)
 
 function gatherAPIInfo() {
-  Promise.all([retrieveDestinations(), retrieveTravelers(), retrieveTrips(), retrieveSpecificTraveler(randomTraveler)])
-  .then(data => {
-    allDestinations = data[0];
-    allTravelers = data[1];
-    allTrips = data[2];
-    currentTraveler = data[3];
-    displayFetchedDestinations(allDestinations);
-    displayFetchedTravelers(allTravelers);
-    displayFetchedTrips(allTrips);
-    displaySpecificTraveler(currentTraveler);
+  Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(randomTraveler)])
+    .then(data => {
+      allDestinations = data[0];
+      allTravelers = data[1];
+      allTrips = data[2];
+      currentTraveler = new Traveler(data[3]);
+      filterForTraveler();
+      catagorizeTrips();
+      greetTraveler(currentTraveler);
+      displayTravelerTrips();
+    })
+}
+let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
+
+// Greet Traveler
+function greetTraveler(traveler) {
+  domUpdates.welcomeTraveler(traveler);
+  domUpdates.getTodaysDate();
+  let tripCosts = travelerTotalSpent();
+  let agentFee = calcAgentFee(travelerTotalSpent());
+  let sumSpent = tripCosts + agentFee;
+  domUpdates.displayTotalTravelerSpendings(sumSpent.toFixed(2))
+}
+
+function travelerTotalSpent() {
+  let spent = travelerTrips.reduce((acc, trip) => {
+    travelerDestinations.forEach(dest => {
+      if(trip.destinationID === dest.id){
+        let flightTotal = trip.travelers * dest.estimatedFlightCostPerPerson;
+        let lodgingTotal = trip.duration * dest.estimatedLodgingCostPerDay;
+        acc += flightTotal;
+        acc += lodgingTotal;
+      }
+    })
+    return acc;
+  }, 0);
+  // console.log(spent);
+  return spent;
+}
+
+function calcAgentFee(cost) {
+  let agentFee = cost * 0.1;
+  // console.log(agentFee.toFixed(2))
+  return agentFee;
+}
+
+// Filter Trips and Destinations for TRAVELERS
+function filterForTraveler() {
+  filterTripsForTraveler();
+  filterDestinationsByTravelerTrips();
+}
+
+// Filter Trips Matching Traveler's id
+function filterTripsForTraveler() {
+  let foundTrips = allTrips.trips.filter(trip => {
+    return trip.userID === currentTraveler.id;
   })
-}
-let randomTraveler = Math.floor(Math.random() * Math.floor(40));
-
-// Fetch Data
-function retrieveSpecificTraveler(travelerId) {
-  return fetch(`http://localhost:3001/api/v1/travelers/${travelerId}`)
-      .then(response => response.json())
-      .catch(err => {
-        alert("Sorry! We are having trouble getting the data, try again later!")
-      })
-}
-
-function retrieveDestinations() {
-  return fetch("http://localhost:3001/api/v1/destinations")
-      .then(response => response.json())
-      .catch(err => {
-        alert("Sorry! We are having trouble getting the data, try again later!")
-      })
-}
-
-function retrieveTravelers() {
-  return fetch("http://localhost:3001/api/v1/travelers")
-      .then(response => response.json())
-      .catch(err => {
-        alert("Sorry! We are having trouble getting the data, try again later!")
-      })
-}
-
-function retrieveTrips() {
-  return fetch("http://localhost:3001/api/v1/trips")
-      .then(response => response.json())
-      .catch(err => {
-        alert("Sorry! We are having trouble getting the data, try again later!")
-      })
-}
-// Display specifc traveler
-function displaySpecificTraveler(specificTravelerData) {
-  specificTravelerDOM.innerHTML +=
-  `<p>${specificTravelerData.id}, ${specificTravelerData.name}, ${specificTravelerData.travelerType}`
-}
-
-// Display all destinations
-function displayFetchedDestinations(destinationsData) {
-  destinationsData.destinations.forEach(destination => {
-    destinationsDOM.innerHTML +=
-    `<p>${destination.id}, ${destination.destination}, ${destination.estimatedLodgingCostPerDay} </p>`
+  travelerTrips = foundTrips.map(trip => {
+    let tripInstantiation = new Trip(trip);
+    return tripInstantiation;
   })
+  console.log(travelerTrips)
+};
+
+// Assign Traveler's Trips to correct area
+function catagorizeTrips() {
+  getTravelerPendingTrips();
+  assignTripsToCorrectCatagory();
 }
 
-// Display all travelers
-function displayFetchedTravelers(travelersData) {
-  travelersData.travelers.forEach(traveler => {
-    travelersDOM.innerHTML +=
-    `<p>${traveler.id}, ${traveler.name}, ${traveler.travelerType} </p>`
+function getTravelerPendingTrips() {
+  travelerTrips.forEach(trip => {
+    if(trip.status === "pending"){
+      pendingTrips.push(trip)
+    }
   })
+  // console.log(pendingTrips, 'A')
 }
 
-// Display all trips
-function displayFetchedTrips(tripsData) {
-  tripsData.trips.forEach(trip => {
-    tripsDOM.innerHTML +=
-    `<p>${trip.id}, ${trip.date}, ${trip.status} </p>`
+function assignTripsToCorrectCatagory() {
+  travelerTrips.forEach(trip => {
+    let dateSplit = trip.date.split("/");
+    let startDate = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2])
+    let tripEnd = startDate.setDate(startDate.getDate() + trip.duration);
+    let startInMil = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2]).getTime();
+    let today = new Date().getTime();
+    if (startInMil < today && today < tripEnd) {
+      currentTrip = trip;
+    } else if (startInMil > today) {
+      upcomingTrips.push(trip);
+    } else {
+      pastTrips.push(trip);
+    }
   })
+  // console.log(currentTrip, 'current')
+  // console.log(pastTrips, 'past')
+  // console.log(upcomingTrips, 'upcoming')
 }
 
+// Filter Destinations Matching Traveler's Trips
+function filterDestinationsByTravelerTrips() {
+  let foundDestinations = [];
+  travelerTrips.forEach(trip => {
+    allDestinations.destinations.forEach(dest => {
+      if (dest.id === trip.destinationID) {
+        foundDestinations.push(dest);
+      }
+    })
+  })
+  travelerDestinations = foundDestinations.map(dest => {
+    return new Destination(dest)
+  })
+  console.log(travelerDestinations)
+};
 
-
+// Call domUpdates functions on load
+function displayTravelerTrips() {
+  domUpdates.displayCurrentTravelerTrip(currentTrip, travelerDestinations);
+  domUpdates.displayUpcomingTrips(upcomingTrips, travelerDestinations);
+  domUpdates.displayPendingTrips(pendingTrips, travelerDestinations);
+  // console.log(currentTrip)
+  // console.log(upcomingTrips)
+}
 
 
 
