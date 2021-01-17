@@ -40,19 +40,22 @@ function gatherAPIInfo() {
     console.log(randomTraveler)
     console.log(currentTraveler)
     greetTraveler(currentTraveler)
+    console.log(allTrips.trips)
+    filterTripsForTraveler(allTrips, currentTraveler)
     // displayFetchedDestinations(allDestinations);
     // displayFetchedTravelers(allTravelers);
     // displayFetchedTrips(allTrips);
     // displaySpecificTraveler(currentTraveler);
   })
 }
-let randomTraveler = Math.floor(Math.random() * Math.floor(40));
+let randomTraveler = Math.floor(Math.random() * Math.floor(40)) +1;
 
 // Greet Traveler
 function greetTraveler(traveler) {
   welcomeTraveler(traveler);
   getTodaysDate();
 }
+
 function welcomeTraveler(traveler) {
   let welcomeMessage = document.querySelector(".welcome-message");
   welcomeMessage.innerText = `Welcome back ${traveler.getFirstName()}!!`
@@ -64,7 +67,13 @@ function getTodaysDate() {
   todaysDate.innerText = `Today's Date: ${date[0]}/${date[1]}/${date[2]}`;
 }
 
-
+// Filter Trips Matching Traveler's id
+function filterTripsForTraveler(totalTrips, currentTraveler) {
+  let travelerTrips = totalTrips.trips.filter(trip => {
+    return trip.userID === currentTraveler.id;
+  })
+  return travelerTrips
+}
 
 
 

@@ -9,7 +9,7 @@ body {
   font-family: $primary-font;
   color: $primary-color;
   display: grid;
-  grid-template-column: 1fr 4fr 4fr;
+  grid-template-column: 1fr 2.5fr 2.5fr;
   grid-template-areas:
   "header header header"
   "aside main main"
@@ -23,30 +23,42 @@ padding: 0;
 header {
   grid-area: header;
   padding: 0 10px 10px 10px;
-  max-height: 20vh;
+  border-bottom: 1px solid rgb(140, 173, 167);
+  font-size: small;
   display: grid;
-  align-items: flex-end;
+  align-items: flex-start;
   grid-template-columns: 1fr 4fr 1fr;
   grid-template-areas:
   "greeting plan title"
 }
 
 .plan-trip {
+  margin: 0;
   max-height: 30px;
   align-self: flex-end;
+}
+
+.site-title {
+  margin: 0;
 }
 
 aside {
   grid-area: aside;
   padding: 10px 10px 0 10px;
-  border-left:  none;
+  border-bottom: 1px solid rgb(140, 173, 167);
+
+}
+.current-trips-title {
+  border: 1px solid rgb(140, 173, 167);
 }
 
 main {
   grid-area: main;
   padding: 10px 10px 0 10px;
-  border: 1px solid rgb(140, 173, 167)
+  border-bottom: 1px solid rgb(140, 173, 167);
+  border-left: 1px solid rgb(140, 173, 167);
 }
+
 
 .upcoming-trips-title,
 .pending-trips-title,
@@ -56,6 +68,7 @@ main {
 
 footer {
   grid-area: footer;
+  margin: 10px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
