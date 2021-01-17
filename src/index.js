@@ -46,6 +46,7 @@ function gatherAPIInfo() {
       filterTripsForTraveler(allTrips, currentTraveler);
       // console.log(allDestinations.destinations)
       filterDestinationsByTravelerTrips(allDestinations, travelerTrips);
+      sortTravelerTrips();
       greetTraveler(currentTraveler);
     })
 }
@@ -73,13 +74,13 @@ function travelerTotalSpent() {
     })
     return acc;
   }, 0);
-  console.log(spent);
+  // console.log(spent);
   return spent;
 }
 
 function calcAgentFee(cost) {
   let agentFee = cost * 0.1;
-  console.log(agentFee.toFixed(2))
+  // console.log(agentFee.toFixed(2))
   return agentFee;
 }
 
@@ -94,6 +95,17 @@ function filterTripsForTraveler(totalTrips, currentTraveler) {
   })
   console.log(travelerTrips)
 };
+
+function sortTravelerTrips() {
+  let pendingTrips = [];
+  travelerTrips.forEach(trip => {
+    if(trip.status === "pending"){
+      pendingTrips.push(trip)
+    }
+  })
+  console.log(pendingTrips, 'A')
+  return pendingTrips;
+}
 
 // Filter Destinations Matching Traveler's Trips
 function filterDestinationsByTravelerTrips(totalDestinations, tripsForTraveler) {

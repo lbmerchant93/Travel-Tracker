@@ -1,5 +1,12 @@
+// QuerySelectors
+let upcomingTravelerTrips = document.querySelector(".upcoming-trips");
+let currentTravelerTrips = document.querySelector(".current-trips");
+let pendingTravelerTrips = document.querySelector(".pending-trips");
+let pastTravelerTrips = document.querySelector(".past-trips");
+
 // Functions to update the DOM go here
 let domUpdates = {
+
   // Greet Traveler
   welcomeTraveler(traveler) {
     let welcomeMessage = document.querySelector(".welcome-message");
@@ -16,16 +23,22 @@ let domUpdates = {
     let totalSpent = document.querySelector(".total-spent");
     totalSpent.innerText =
     `You have spent $${total} this year`
-  }
+  },
+
+  // basic layout for cards
+  // <div class="current-trip card">
+  //   <p>this is a place holder for the image</p>
+  //   <h4 class="trip-destination">trip destination based on destination id</h4>
+  //   <p class="details">start date && return date && number of travelers</p>
+  // </div>
+
+
+
+
+
 }
 
 
 
 
 export default domUpdates;
-// basic layout for cards
-// <div class="current-trip">
-//   <p>this is a place holder for the image</p>
-//   <h4 class="trip-destination">trip destination based on destination id</h4>
-//   <p class="details">start date && return date && number of travelers</p>
-// </div>
