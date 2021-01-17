@@ -42,11 +42,10 @@ function gatherAPIInfo() {
       allTravelers = data[1];
       allTrips = data[2];
       currentTraveler = new Traveler(data[3]);
-      filterTripsForTraveler(allTrips, currentTraveler);
-      filterDestinationsByTravelerTrips(allDestinations, travelerTrips);
-      getTravelerPendingTrips();
-      getTravelerPastTrips();
+      filterForTraveler();
+      catagorizeTrips();
       greetTraveler(currentTraveler);
+      displayTravelerTrips();
     })
 }
 let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
@@ -83,17 +82,29 @@ function calcAgentFee(cost) {
   return agentFee;
 }
 
+// Filter Trips and Destinations for TRAVELERS
+function filterForTraveler() {
+  filterTripsForTraveler();
+  filterDestinationsByTravelerTrips();
+}
+
 // Filter Trips Matching Traveler's id
-function filterTripsForTraveler(totalTrips, currentTraveler) {
-  let foundTrips = totalTrips.trips.filter(trip => {
+function filterTripsForTraveler() {
+  let foundTrips = allTrips.trips.filter(trip => {
     return trip.userID === currentTraveler.id;
   })
   travelerTrips = foundTrips.map(trip => {
     let tripInstantiation = new Trip(trip);
     return tripInstantiation;
   })
-  // console.log(travelerTrips)
+  console.log(travelerTrips)
 };
+
+// Assign Traveler's Trips to correct area
+function catagorizeTrips() {
+  getTravelerPendingTrips();
+  assignTripsToCorrectCatagory();
+}
 
 function getTravelerPendingTrips() {
   let pendingTrips = [];
@@ -105,12 +116,12 @@ function getTravelerPendingTrips() {
   // console.log(pendingTrips, 'A')
   return pendingTrips;
 }
-function getTravelerPastTrips() {
+
+function assignTripsToCorrectCatagory() {
   travelerTrips.forEach(trip => {
     let dateSplit = trip.date.split("/");
     let startDate = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2])
     let tripEnd = startDate.setDate(startDate.getDate() + trip.duration);
-    let example = new Date(dateSplit[0], (dateSplit[1]-1), (dateSplit[2]))
     let startInMil = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2]).getTime();
     let today = new Date().getTime();
     if (startInMil < today && today < tripEnd) {
@@ -121,16 +132,16 @@ function getTravelerPastTrips() {
       pastTrips.push(trip);
     }
   })
-  console.log(currentTrip, 'current')
-  console.log(pastTrips, 'past')
-  console.log(upcomingTrips, 'upcoming')
+  // console.log(currentTrip, 'current')
+  // console.log(pastTrips, 'past')
+  // console.log(upcomingTrips, 'upcoming')
 }
 
 // Filter Destinations Matching Traveler's Trips
-function filterDestinationsByTravelerTrips(totalDestinations, tripsForTraveler) {
+function filterDestinationsByTravelerTrips() {
   let foundDestinations = [];
-  tripsForTraveler.forEach(trip => {
-    totalDestinations.destinations.forEach(dest => {
+  travelerTrips.forEach(trip => {
+    allDestinations.destinations.forEach(dest => {
       if (dest.id === trip.destinationID) {
         foundDestinations.push(dest);
       }
@@ -139,41 +150,15 @@ function filterDestinationsByTravelerTrips(totalDestinations, tripsForTraveler) 
   travelerDestinations = foundDestinations.map(dest => {
     return new Destination(dest)
   })
-  // console.log(travelerDestinations)
+  console.log(travelerDestinations)
 };
 
+// Call domUpdates functions on load
+function displayTravelerTrips() {
+  domUpdates.displayCurrentTravelerTrip(currentTrip, travelerDestinations);
+  console.log(currentTrip)
+}
 
-
-
-// // Display specifc traveler
-// function displaySpecificTraveler(specificTravelerData) {
-//   specificTravelerDOM.innerHTML +=
-//     `<p>${specificTravelerData.id}, ${specificTravelerData.name}, ${specificTravelerData.travelerType}`
-// }
-//
-// // Display all destinations
-// function displayFetchedDestinations(destinationsData) {
-//   destinationsData.destinations.forEach(destination => {
-//     destinationsDOM.innerHTML +=
-//       `<p>${destination.id}, ${destination.destination}, ${destination.estimatedLodgingCostPerDay} </p>`
-//   })
-// }
-//
-// // Display all travelers
-// function displayFetchedTravelers(travelersData) {
-//   travelersData.travelers.forEach(traveler => {
-//     travelersDOM.innerHTML +=
-//       `<p>${traveler.id}, ${traveler.name}, ${traveler.travelerType} </p>`
-//   })
-// }
-//
-// // Display all trips
-// function displayFetchedTrips(tripsData) {
-//   tripsData.trips.forEach(trip => {
-//     tripsDOM.innerHTML +=
-//       `<p>${trip.id}, ${trip.date}, ${trip.status} </p>`
-//   })
-// }
 
 
 
