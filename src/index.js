@@ -157,6 +157,7 @@ function displayTravelerTrips() {
   domUpdates.displayCurrentTravelerTrip(currentTrip, travelerDestinations);
   domUpdates.displayUpcomingTrips(upcomingTrips, travelerDestinations);
   domUpdates.displayPendingTrips(pendingTrips, travelerDestinations);
+  domUpdates.displayPastTrips(pastTrips, travelerDestinations);
   // console.log(currentTrip)
   // console.log(upcomingTrips)
 }

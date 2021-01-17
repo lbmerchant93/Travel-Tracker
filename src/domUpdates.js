@@ -75,7 +75,20 @@ let domUpdates = {
   },
 
   displayPastTrips(trips, destinations) {
-
+    let past = document.querySelector(".past-trips-container");
+    if (trips[0] === undefined) {
+      past.innerHTML = `<p>You don\'t have any past trips, click PLAN A TRIP to plan your next trip!!</p>`
+    } else {
+      trips.forEach(trip => {
+        let foundDest = findDestinationBasedOnTrip(trip, destinations);
+        let dateSplit = trip.date.split("/");
+        past.innerHTML += `<div class="upcoming card">
+          <p>this is a place holder for the image</p>
+          <h4 class="trip-destination">${foundDest.destination}</h4>
+          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
+        </div>`
+      })
+    }
   },
   //  basic layout for cards
   //  <div class="current-trip card">
