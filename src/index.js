@@ -55,7 +55,10 @@ let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
 function greetTraveler(traveler) {
   domUpdates.welcomeTraveler(traveler);
   domUpdates.getTodaysDate();
-  domUpdates.displayTotalTravelerSpendings(travelerTotalSpent())
+  let tripCosts = travelerTotalSpent();
+  let agentFee = calcAgentFee(travelerTotalSpent());
+  let sumSpent = tripCosts + agentFee;
+  domUpdates.displayTotalTravelerSpendings(sumSpent.toFixed(2))
 }
 
 function travelerTotalSpent() {
@@ -70,8 +73,14 @@ function travelerTotalSpent() {
     })
     return acc;
   }, 0);
-  // console.log(spent);
+  console.log(spent);
   return spent;
+}
+
+function calcAgentFee(cost) {
+  let agentFee = cost * 0.1;
+  console.log(agentFee.toFixed(2))
+  return agentFee;
 }
 
 // Filter Trips Matching Traveler's id
