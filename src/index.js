@@ -46,7 +46,8 @@ function gatherAPIInfo() {
       filterTripsForTraveler(allTrips, currentTraveler);
       // console.log(allDestinations.destinations)
       filterDestinationsByTravelerTrips(allDestinations, travelerTrips);
-      sortTravelerTrips();
+      getTravelerPendingTrips();
+      getTravelerPastTrip();
       greetTraveler(currentTraveler);
     })
 }
@@ -96,7 +97,7 @@ function filterTripsForTraveler(totalTrips, currentTraveler) {
   console.log(travelerTrips)
 };
 
-function sortTravelerTrips() {
+function getTravelerPendingTrips() {
   let pendingTrips = [];
   travelerTrips.forEach(trip => {
     if(trip.status === "pending"){
@@ -105,6 +106,22 @@ function sortTravelerTrips() {
   })
   console.log(pendingTrips, 'A')
   return pendingTrips;
+}
+function getTravelerPastTrip() {
+  let pastTrips = [];
+  travelerTrips.forEach(trip => {
+    let dateSplit = trip.date.split("/");
+    let dateMil = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2]).getTime();
+    let today = new Date().getTime();
+    if (dateMil <= today) {
+      pastTrips.push(trip);
+    }
+    // console.log(dateSplit)
+    // console.log(dateMil)
+    // console.log(today)
+    // console.log(pastTrips)
+  })
+  return pastTrips;
 }
 
 // Filter Destinations Matching Traveler's Trips
