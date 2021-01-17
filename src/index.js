@@ -55,11 +55,10 @@ let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
 function greetTraveler(traveler) {
   domUpdates.welcomeTraveler(traveler);
   domUpdates.getTodaysDate();
-  travelerTotalSpent();
+  domUpdates.displayTotalTravelerSpendings(travelerTotalSpent())
 }
 
 function travelerTotalSpent() {
-  let totalSpent = document.querySelector(".total-spent");
   let spent = travelerTrips.reduce((acc, trip) => {
     travelerDestinations.forEach(dest => {
       if(trip.destinationID === dest.id){
@@ -71,7 +70,7 @@ function travelerTotalSpent() {
     })
     return acc;
   }, 0);
-  console.log(spent);
+  // console.log(spent);
   return spent;
 }
 

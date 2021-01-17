@@ -11,7 +11,12 @@ let domUpdates = {
     let date = new Date().toLocaleDateString("en-US").split("/");
     todaysDate.innerText = `Today's Date: ${date[0]}/${date[1]}/${date[2]}`;
   },
-  
+
+  displayTotalTravelerSpendings(total) {
+    let totalSpent = document.querySelector(".total-spent");
+    totalSpent.innerText =
+    `You have spent $${total} this year`
+  }
 }
 
 
