@@ -31,10 +31,11 @@ let domUpdates = {
       current.innerHTML = `<p>You shouldn\'t be on a trip right now. Maybe you should plan your next one if you don\'t have any upcoming trips either!!</p>`
     } else {
       let foundDest = findDestinationBasedOnTrip(trip, destinations);
+      let splitDestName = foundDest.destination.split(", ");
       let dateSplit = trip.date.split("/");
       current.innerHTML = `<div class="current card">
         <p>this is a place holder for the image</p>
-        <h4 class="trip-destination">${foundDest.destination}</h4>
+        <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
         <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
       </div>`
     }
@@ -47,10 +48,11 @@ let domUpdates = {
     } else {
       trips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
+        let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
         upcoming.innerHTML += `<div class="upcoming card">
           <p>this is a place holder for the image</p>
-          <h4 class="trip-destination">${foundDest.destination}</h4>
+          <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
           <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
         </div>`
       })
@@ -64,10 +66,11 @@ let domUpdates = {
     } else {
       trips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
+        let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
         pending.innerHTML += `<div class="upcoming card">
           <p>this is a place holder for the image</p>
-          <h4 class="trip-destination">${foundDest.destination}</h4>
+          <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
           <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
         </div>`
       })
@@ -81,10 +84,11 @@ let domUpdates = {
     } else {
       trips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
+        let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
         past.innerHTML += `<div class="upcoming card">
           <p>this is a place holder for the image</p>
-          <h4 class="trip-destination">${foundDest.destination}</h4>
+          <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
           <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
         </div>`
       })
@@ -95,7 +99,7 @@ let domUpdates = {
 
 function findDestinationBasedOnTrip(trip, destinations) {
   let foundTrip = destinations.find(destination => destination.id === trip.destinationID)
-  console.log(foundTrip);
+  // console.log(foundTrip);
   return foundTrip;
 }
 

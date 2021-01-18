@@ -98,7 +98,7 @@ function filterTripsForTraveler() {
     let tripInstantiation = new Trip(trip);
     return tripInstantiation;
   })
-  console.log(travelerTrips)
+  // console.log(travelerTrips)
 };
 
 // Assign Traveler's Trips to correct area
@@ -149,7 +149,7 @@ function filterDestinationsByTravelerTrips() {
   travelerDestinations = foundDestinations.map(dest => {
     return new Destination(dest)
   })
-  console.log(travelerDestinations)
+  // console.log(travelerDestinations)
 };
 
 // Call domUpdates functions on load
