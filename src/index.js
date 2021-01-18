@@ -31,7 +31,7 @@ allInputs.forEach(input => {
 })
 
 function gatherAPIInfo() {
-  Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(3)])
+  Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(36)])
     .then(data => {
       allDestinations = data[0];
       allTravelers = data[1];
@@ -48,7 +48,8 @@ function gatherAPIInfo() {
 function greetTraveler(traveler) {
   domUpdates.welcomeTraveler(traveler);
   domUpdates.getTodaysDate();
-  let tripCosts = traveler.tripCosts(travelerTrips, travelerDestinations, 2020);
+  let trips2020 = traveler.filterTripsByYear(2020, travelerTrips);
+  let tripCosts = traveler.tripCosts(trips2020, travelerDestinations);
   let agentFee = traveler.calcAgentFee(tripCosts);
   let sumSpent = tripCosts + agentFee;
   domUpdates.displayTotalTravelerSpendings(sumSpent.toFixed(2))
