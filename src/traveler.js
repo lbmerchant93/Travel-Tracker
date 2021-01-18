@@ -18,6 +18,28 @@ class Traveler {
   addTrip(tripTiming, tripObject) {
     this[tripTiming].push(tripObject);
   }
+
+  tripCosts(trips, destinations) {
+    let spent = trips.reduce((acc, trip) => {
+      destinations.forEach(dest => {
+        if(trip.destinationID === dest.id){
+          let flightTotal = trip.travelers * dest.estimatedFlightCostPerPerson;
+          let lodgingTotal = trip.duration * dest.estimatedLodgingCostPerDay;
+          acc += flightTotal;
+          acc += lodgingTotal;
+        }
+      })
+      return acc;
+    }, 0);
+    console.log(spent)
+    return spent;
+  }
+
+  calcAgentFee(cost) {
+    let agentFee = cost * 0.1;
+    console.log(agentFee)
+    return agentFee;
+  }
 }
 
 

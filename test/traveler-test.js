@@ -5,15 +5,21 @@ import Traveler from '../src/traveler';
 import sampleData from '../test/sampleData.js'
 const sampleTravelerData = sampleData.sampleTravelerData;
 const sampleTripData = sampleData.sampleTripData;
+const sampleDestinationData = sampleData.sampleDestinationData;
 
 describe('Traveler', () => {
-  let traveler1, traveler2, trip1, trip2;
+  let traveler1, traveler2, trip1, trip2, trip3, destination1, destination2, sampleTrips, sampleDests;
 
   beforeEach(() => {
     traveler1 = new Traveler(sampleTravelerData[0]);
     traveler2 = new Traveler(sampleTravelerData[1]);
     trip1 = sampleTripData[0];
     trip2 = sampleTripData[1];
+    trip3 = sampleTripData[2];
+    destination1 = sampleDestinationData[0];
+    destination2 = sampleDestinationData[6];
+    sampleTrips = [trip1, trip3];
+    sampleDests = [destination1, destination2];
   });
 
   it('should be a function', () => {
@@ -50,7 +56,7 @@ describe('Traveler', () => {
       expect(traveler1.currentTrips).to.deep.equal([{
           "id": 117,
           "userID": 1,
-          "destinationID": 28,
+          "destinationID": 1,
           "travelers": 3,
           "date": "2021/01/09",
           "duration": 15,
@@ -69,5 +75,9 @@ describe('Traveler', () => {
          "status": "approved",
          "suggestedActivities": []
        }]);
+    })
+
+    it('should have a method to total the cost a trip will be for the amount of travelers and duration of trip', () => {
+      expect(traveler1.tripCosts(sampleTrips, sampleDests)).to.equal(3640);
     })
 });

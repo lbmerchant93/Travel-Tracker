@@ -21,7 +21,7 @@ describe('Trip', () => {
   it('should hold all the trip\'s information', () => {
     expect(trip1.id).to.equal(117);
     expect(trip1.userID).to.equal(1);
-    expect(trip1.destinationID).to.equal(28);
+    expect(trip1.destinationID).to.equal(1);
     expect(trip1.travelers).to.equal(3);
     expect(trip1.date).to.equal("2021/01/09");
     expect(trip1.duration).to.equal(15);

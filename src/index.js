@@ -55,32 +55,10 @@ let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
 function greetTraveler(traveler) {
   domUpdates.welcomeTraveler(traveler);
   domUpdates.getTodaysDate();
-  let tripCosts = travelerTotalSpent();
-  let agentFee = calcAgentFee(travelerTotalSpent());
+  let tripCosts = traveler.tripCosts(travelerTrips, travelerDestinations);
+  let agentFee = traveler.calcAgentFee(tripCosts);
   let sumSpent = tripCosts + agentFee;
   domUpdates.displayTotalTravelerSpendings(sumSpent.toFixed(2))
-}
-
-function travelerTotalSpent() {
-  let spent = travelerTrips.reduce((acc, trip) => {
-    travelerDestinations.forEach(dest => {
-      if(trip.destinationID === dest.id){
-        let flightTotal = trip.travelers * dest.estimatedFlightCostPerPerson;
-        let lodgingTotal = trip.duration * dest.estimatedLodgingCostPerDay;
-        acc += flightTotal;
-        acc += lodgingTotal;
-      }
-    })
-    return acc;
-  }, 0);
-  // console.log(spent);
-  return spent;
-}
-
-function calcAgentFee(cost) {
-  let agentFee = cost * 0.1;
-  // console.log(agentFee.toFixed(2))
-  return agentFee;
 }
 
 // Filter Trips and Destinations for TRAVELERS
