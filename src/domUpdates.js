@@ -3,6 +3,8 @@ let upcomingTravelerTrips = document.querySelector(".upcoming-trips");
 let currentTravelerTrips = document.querySelector(".current-trips");
 let pendingTravelerTrips = document.querySelector(".pending-trips");
 let pastTravelerTrips = document.querySelector(".past-trips");
+// let calcNewTripCost = document.querySelector(".calc-cost");
+// calcNewTripCost.addEventListener("click", retrieveNewTripCost);
 
 // Functions to update the DOM go here
 let domUpdates = {
@@ -97,16 +99,21 @@ let domUpdates = {
 
   populateDestinationsInput(destinations) {
     let destinationsInput = document.querySelector(".possible-destination");
-    let count = 1;
     destinations.destinations.forEach(dest => {
-      count += 1;
       let destinationOption = `
-      <option value="${count}">
+      <option value="${dest.id}">
         ${dest.destination}
       </option>
       `
       destinationsInput.insertAdjacentHTML("beforeend", destinationOption);
     })
+  },
+
+  displayNewTripCost(cost) {
+    let newTripCost = document.querySelector(".new-trip-cost");
+    newTripCost.innerHTML = `
+    <p> This trip will cost $${cost} (including the agent fee) <p>
+    `;
   }
 
 }

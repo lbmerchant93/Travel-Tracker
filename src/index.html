@@ -21,18 +21,23 @@
     </div>
   </header>
   <section class="request-trip-container">
-    <label for="select-date">Select Start Date:<input type="date" class="select-date" name="select-date" min="2021-01-01" max="2030-12-31" /></label>
-    <label for="enter-duration">Duration (in days):<input type="number" class="enter-duration" name="enter-duration" min="1" placeholder="Duration"/></label>
-    <label for="number-travelers">Travelers:<input type="number" class="number-travelers" name="number-travelers" min="1" placeholder="Travelers"/></label>
-    <label for="possible-destinations">Choose A Destination
-    <select class="possible-destination" name="possible-destination">
-      <option value="1">
-        Choose Destination
-      </option>
-    </select>
-    </label>
-    <label for="calc-cost"><input type="submit" class="calc-cost" name="calc-cost" value="Calculate Trip Cost"></label>
-    <label for="submit"><input type="submit" name="submit" value="Submit Request" /></label>
+    <div class="input-options">
+      <label for="select-date">Select Start Date:<input type="date" class="select-date" name="select-date" min="2021-01-01" max="2030-12-31" /></label>
+      <label for="enter-duration">Duration (in days):<input type="number" class="enter-duration" name="enter-duration" min="1" placeholder="Duration" /></label>
+      <label for="number-travelers">Travelers:<input type="number" class="number-travelers" name="number-travelers" min="1" placeholder="Travelers" /></label>
+      <label for="possible-destination">Choose A Destination:
+        <select class="possible-destination" name="possible-destination">
+          <option value="0">
+            Choose Destination
+          </option>
+        </select>
+      </label>
+    </div>
+    <div class="new-trip-cost"></div>
+    <div class="button-wrapper">
+      <label for="calc-cost"><input type="submit" class="calc-cost" name="calc-cost" value="Calculate Trip Cost" /></label>
+      <label for="submit"><input type="submit" name="submit" value="Submit Request" /></label>
+    </div>
   </section>
   <aside>
     <div class="current-trips">
@@ -55,18 +60,6 @@
       <h4 class="past-trips-title">PAST TRIPS</h4>
       <div class="past-trips-container">
     </section>
-    <!-- <div class="specific-traveler">
-      Specific Traveler Info
-    </div>
-    <div class="destinations">
-      DESTINATIONS
-    </div>
-    <div class="travelers">
-      TRAVELERS
-    </div>
-    <div class="trips">
-      TRIPS
-    </div> -->
   </main>
   <footer>
     <p>Contact An Agent</p>

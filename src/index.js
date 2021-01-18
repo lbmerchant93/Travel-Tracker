@@ -21,16 +21,14 @@ let allTravelers;
 let allTrips;
 let currentTraveler;
 let travelerTrips;
-let travelerDestinations;
+let newTripIdCount = 100;
+let travelerDestinations;let calcNewTripCost = document.querySelector(".calc-cost");
 
-// QuerySelectors
-// let destinationsDOM = document.querySelector(".destinations");
-// let specificTravelerDOM = document.querySelector(".specific-traveler");
-// let travelersDOM = document.querySelector(".travelers");
-// let tripsDOM = document.querySelector(".trips");
+
 
 // Eventlisteners
-window.addEventListener("load", gatherAPIInfo)
+window.addEventListener("load", gatherAPIInfo);
+calcNewTripCost.addEventListener("click", retrieveNewTripCost);
 
 function gatherAPIInfo() {
   Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(randomTraveler)])
@@ -128,6 +126,30 @@ function displayTravelerTrips() {
   domUpdates.displayUpcomingTrips(currentTraveler, travelerDestinations);
   domUpdates.displayPendingTrips(currentTraveler, travelerDestinations);
   domUpdates.displayPastTrips(currentTraveler, travelerDestinations);
+}
+
+// New Trip Cost with inputs
+function retrieveNewTripCost() {
+  let plannedTrip = instantiateNewTrip();
+  allDestinations.destinations.forEach(dest => {
+    if (dest.id === plannedTrip.destinationID) {
+      plannedTrip.getCostOfTrip(dest)
+    }
+  })
+  let tripWithAgentFee = plannedTrip.cost + currentTraveler.calcAgentFee(plannedTrip.cost);
+  let totalForTrip = tripWithAgentFee.toFixed(2);
+  domUpdates.displayNewTripCost(totalForTrip);
+}
+
+function instantiateNewTrip() {
+  let date = document.querySelector(".select-date").value.split("-");
+  let dateCorrect = `${date[0]}/${date[1]}/${date[2]}`
+  let duration = document.querySelector(".enter-duration").value;
+  let travelers = document.querySelector(".number-travelers").value;
+  let destination = parseInt(document.querySelector(".possible-destination").value);
+  let trip = {id: newTripIdCount, userID:currentTraveler.id, destinationID: destination, travelers: travelers, date: dateCorrect, duration: duration, status: 'pending', suggestedActivities: []};
+  let newTrip = new Trip(trip);
+  return newTrip;
 }
 
 

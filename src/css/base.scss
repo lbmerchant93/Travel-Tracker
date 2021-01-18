@@ -1,5 +1,6 @@
 @import "mixins";
 @import "cards";
+@import "inputField";
 /* This is an example of using Sass, otherwise plain CSS works too*/
 $primary-background: rgb(255, 221, 210);
 $primary-color: rgb(35, 61, 77);
@@ -52,24 +53,6 @@ header {
 .todays-date {
   margin: 0;
   text-align: right;
-}
-
-.request-trip-container{
-  grid-area: request;
-  border: 1px solid rgb(140, 173, 167);
-  padding: 5px;
-  @include flex(row);
-}
-
-label {
-  align-self: center;
-}
-
-input,
-select {
-  margin: 0 5px 0 5px;
-  max-height: 18px;
-  align-self: center;
 }
 
 aside {
