@@ -99,7 +99,6 @@ let domUpdates = {
 
 function findDestinationBasedOnTrip(trip, destinations) {
   let foundTrip = destinations.find(destination => destination.id === trip.destinationID)
-  // console.log(foundTrip);
   return foundTrip;
 }
 

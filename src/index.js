@@ -22,10 +22,6 @@ let allTrips;
 let currentTraveler;
 let travelerTrips;
 let travelerDestinations;
-let pastTrips = [];
-let upcomingTrips = [];
-let pendingTrips = [];
-let currentTrip;
 
 // QuerySelectors
 // let destinationsDOM = document.querySelector(".destinations");
@@ -47,7 +43,6 @@ function gatherAPIInfo() {
       catagorizeTrips();
       greetTraveler(currentTraveler);
       displayTravelerTrips();
-    console.log(travelerTrips)
     })
 }
 let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
@@ -70,7 +65,6 @@ function filterForTraveler() {
 
 // Filter Trips Matching Traveler's id
 function filterTripsForTraveler() {
-  console.log(allTrips, 'merp')
   let foundTrips = allTrips.trips.filter(trip => {
     return trip.userID === currentTraveler.id;
   })
@@ -78,7 +72,6 @@ function filterTripsForTraveler() {
     let tripInstantiation = new Trip(trip);
     return tripInstantiation;
   })
-  // console.log(travelerTrips)
 };
 
 // Assign Traveler's Trips to correct area
@@ -94,7 +87,6 @@ function getTravelerPendingTrips() {
       pendingTrips.push(trip)
     }
   })
-  // console.log(pendingTrips, 'A')
 }
 
 function assignTripsToCorrectCatagory() {
@@ -111,11 +103,7 @@ function assignTripsToCorrectCatagory() {
     } else {
       currentTraveler.addTrip('pastTrips', trip);
     }
-    console.log(currentTraveler,'llll');
   })
-  // console.log(currentTrip, 'current')
-  // console.log(pastTrips, 'past')
-  // console.log(upcomingTrips, 'upcoming')
 }
 
 // Filter Destinations Matching Traveler's Trips
@@ -132,7 +120,6 @@ function filterDestinationsByTravelerTrips() {
   travelerDestinations = foundDestinations.map(dest => {
     return new Destination(dest)
   })
-  // console.log(travelerDestinations)
 };
 
 // Call domUpdates functions on load
@@ -141,8 +128,6 @@ function displayTravelerTrips() {
   domUpdates.displayUpcomingTrips(currentTraveler, travelerDestinations);
   domUpdates.displayPendingTrips(currentTraveler, travelerDestinations);
   domUpdates.displayPastTrips(currentTraveler, travelerDestinations);
-  // console.log(currentTrip)
-  // console.log(upcomingTrips)
 }
 
 
