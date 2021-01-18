@@ -20,18 +20,51 @@ let travelerDestinations;
 
 let allInputs = document.querySelectorAll(".input");
 let calcNewTripCost = document.querySelector(".calc-cost");
+let password = document.querySelector(".password");
+let submitLogin = document.querySelector(".submit-login");
 let submitTripRequest = document.querySelector(".submit-request");
+let username = document.querySelector(".username");
 
 window.addEventListener("load", gatherAPIInfo);
 calcNewTripCost.addEventListener("click", retrieveNewTripCost);
+password.addEventListener("keyup", checkLoginInputsEnableSubmit);
+submitLogin.addEventListener("click", submitLoginInfo)
+username.addEventListener("keyup", checkLoginInputsEnableSubmit);
 submitTripRequest.addEventListener("click", submitRequest);
 allInputs.forEach(input => {
   input.addEventListener("keyup", checkIfAllFilledOut);
   input.addEventListener("click", checkIfAllFilledOut);
 })
 
+function checkLoginInputsEnableSubmit() {
+  if (password.value != "" & username.value.length > 8 && username.value.includes("traveler")) {
+    submitLogin.disabled = false;
+  } else {
+    submitLogin.disabled = true;
+  };
+}
+
+let example;
+let loginTrav;
+let found;
+
+function submitLoginInfo() {
+  let splitID = parseInt(username.value.slice(8));
+  fetchData.retrieveTravelers()
+  .then(data => {
+    example = data;
+    found = example.travelers.find(traveler => traveler.id === splitID);
+    if (password.value === "travel2020" && found !== undefined) {
+      console.log('merp')
+    } else {
+      console.log("Username or password not recognized")
+    };
+  });
+}
+
+
 function gatherAPIInfo() {
-  Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(36)])
+  Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(3)])
     .then(data => {
       allDestinations = data[0];
       allTravelers = data[1];
@@ -128,8 +161,8 @@ function displayTravelerTrips() {
 
 function checkIfAllFilledOut() {
   if (allInputs[1].value != "" && allInputs[2].value != "") {
-    calcNewTripCost.disabled = false
-  }
+    calcNewTripCost.disabled = false;
+  };
 }
 
 function retrieveNewTripCost() {

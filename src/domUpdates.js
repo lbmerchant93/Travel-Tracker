@@ -49,7 +49,7 @@ let domUpdates = {
     let upcoming = document.querySelector(".upcoming-trips-container");
     upcoming.innerHTML = "";
     if (traveler.upcomingTrips[0] === undefined) {
-      upcoming.innerHTML = `<p>You don\'t have any upcoming trips, click PLAN A TRIP to plan your next trip!!</p>`
+      upcoming.innerHTML = `<p>You don\'t have any upcoming trips, fill out the form above to plan your next trip!!</p>`
     } else {
       traveler.upcomingTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
@@ -68,7 +68,7 @@ let domUpdates = {
     let pending = document.querySelector(".pending-trips-container");
     pending.innerHTML = "";
     if (traveler.pendingTrips[0] === undefined) {
-      pending.innerHTML = `<p>You don\'t have any pending trips, click PLAN A TRIP to plan your next trip!!</p>`
+      pending.innerHTML = `<p>You don\'t have any pending trips, fill out the form above to plan your next trip!!</p>`
     } else {
       traveler.pendingTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
@@ -87,7 +87,7 @@ let domUpdates = {
     let past = document.querySelector(".past-trips-container");
     past.innerHTML = "";
     if (traveler.pastTrips[0] === undefined) {
-      past.innerHTML = `<p>You don\'t have any past trips, click PLAN A TRIP to plan your next trip!!</p>`
+      past.innerHTML = `<p>You don\'t have any past trips, fill out the form above to plan your next trip!!</p>`
     } else {
       traveler.pastTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);

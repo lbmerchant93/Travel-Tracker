@@ -1,4 +1,5 @@
 @import "variables";
+@import "login";
 @import "mixins";
 @import "cards";
 @import "inputField";
@@ -7,17 +8,22 @@ body {
   background: $primary-background;
   font-family: $primary-font;
   font-weight: lighter;
+  display: flex;
+  justify-content: center;
   color: $primary-color;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+.main-dashboard {
   display: grid;
   grid-template-columns: 1fr 5fr;
   grid-template-areas: "header header"
   "request request"
   "aside main"
   "footer footer";
-  height: 100vh;
-  width: 100vw;
-  margin: 0;
-  padding: 0;
 }
 
 header {
@@ -95,4 +101,7 @@ footer {
 button {
   cursor: pointer;
 }
-//
+
+.hidden {
+  display: none;
+}

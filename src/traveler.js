@@ -21,7 +21,6 @@ class Traveler {
 
   filterTripsByYear(year, trips) {
     let tripsPerYear = trips.filter(trip => trip.date.includes(year));
-console.log(tripsPerYear)
     return tripsPerYear
   }
 
@@ -30,13 +29,11 @@ console.log(tripsPerYear)
       acc += trip.cost
       return acc;
     }, 0);
-    console.log(spent)
     return spent;
   }
 
   calcAgentFee(cost) {
     let agentFee = cost * 0.1;
-    console.log(agentFee)
     return agentFee;
   }
 }

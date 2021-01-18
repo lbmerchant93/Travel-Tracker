@@ -1,0 +1,24 @@
+.login-article {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 250px;
+  width: 200px;
+  border: $primary-border;
+}
+.login-msg {
+  text-align: center;
+  font-size: large;
+}
+
+label,
+input {
+  display: block;
+  margin: 5px;
+}
+
+.username,
+.password {
+  margin: 5px;
+}
