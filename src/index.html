@@ -11,23 +11,23 @@
 
 <body>
   <header>
-    <div class="greeting">
-      <h2 class="welcome-message"></h2>
-      <h3 class="total-spent"></h3>
-    </div>
     <div class="title">
       <h1 class="site-title">Travel<br />Tracker</h1>
       <h2 class="todays-date"></h2>
     </div>
+    <div class="greeting">
+      <h2 class="welcome-message"></h2>
+      <h3 class="total-spent"></h3>
+    </div>
   </header>
   <section class="request-trip-container">
     <div class="input-options">
-      <label for="select-date">Select Start Date:<input type="date" class="select-date" name="select-date" min="2021-01-01" max="2030-12-31" /></label>
-      <label for="enter-duration">Duration (in days):<input type="number" class="enter-duration" name="enter-duration" min="1" placeholder="Duration" /></label>
-      <label for="number-travelers">Travelers:<input type="number" class="number-travelers" name="number-travelers" min="1" placeholder="Travelers" /></label>
+      <label for="select-date">Select Start Date:<input type="date" class="select-date input" name="select-date" min="2021-01-01" max="2030-12-31" /></label>
+      <label for="enter-duration">Duration (in days):<input type="number" class="enter-duration input" name="enter-duration" min="1" placeholder="Duration" /></label>
+      <label for="number-travelers">Travelers:<input type="number" class="number-travelers input" name="number-travelers" min="1" placeholder="Travelers" /></label>
       <label for="possible-destination">Choose A Destination:
-        <select class="possible-destination" name="possible-destination">
-          <option value="0">
+        <select class="possible-destination input" name="possible-destination">
+          <option class="option" value="0">
             Choose Destination
           </option>
         </select>
@@ -35,8 +35,8 @@
     </div>
     <div class="new-trip-cost"></div>
     <div class="button-wrapper">
-      <label for="calc-cost"><input type="submit" class="calc-cost" name="calc-cost" value="Calculate Trip Cost" /></label>
-      <label for="submit"><input type="submit" class="submit-request" name="submit" value="Submit Request" /></label>
+      <label for="calc-cost"><input type="submit" class="calc-cost" name="calc-cost" value="Calculate Trip Cost" disabled/></label>
+      <label for="submit"><input type="submit" class="submit-request" name="submit" value="Submit Request" disabled/></label>
     </div>
   </section>
   <aside>

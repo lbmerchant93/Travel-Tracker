@@ -114,11 +114,15 @@ let domUpdates = {
     })
   },
 
-  displayNewTripCost(cost) {
+  displayNewTripCost(cost, inputs) {
     let newTripCost = document.querySelector(".new-trip-cost");
-    newTripCost.innerHTML = `
-    <p> This trip will cost $${cost} (including the agent fee) <p>
-    `;
+    if (inputs[0].value != "" && inputs[3].value != "0") {
+      newTripCost.innerHTML = `<p> This trip will cost $${cost} (including the agent fee) <p>`;
+    } else if (inputs[0].value === "") {
+      newTripCost.innerHTML = `<p>Please select a date!</p>`;
+    } else if (inputs[3].value === "0") {
+      newTripCost.innerHTML = `<p>Please select a destination!</p>`;
+    }
   },
 
   removeTripCostAfterRequestedClearInputs(){
