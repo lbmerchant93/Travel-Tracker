@@ -21,17 +21,21 @@ let allTravelers;
 let allTrips;
 let currentTraveler;
 let travelerTrips;
-let newTripIdCount = 100;
-let travelerDestinations;let calcNewTripCost = document.querySelector(".calc-cost");
-
+let newTripIdCount;
+let plannedTrip;
+let tripObj;
+let travelerDestinations;
+let calcNewTripCost = document.querySelector(".calc-cost");
+let submitTripRequest = document.querySelector(".submit-request");
 
 
 // Eventlisteners
 window.addEventListener("load", gatherAPIInfo);
 calcNewTripCost.addEventListener("click", retrieveNewTripCost);
+submitTripRequest.addEventListener("click", submitRequest);
 
 function gatherAPIInfo() {
-  Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(randomTraveler)])
+  Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(3)])
     .then(data => {
       allDestinations = data[0];
       allTravelers = data[1];
@@ -44,7 +48,8 @@ function gatherAPIInfo() {
       displayTravelerTrips();
     })
 }
-let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
+
+// let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
 
 // Greet Traveler
 function greetTraveler(traveler) {
@@ -130,12 +135,13 @@ function displayTravelerTrips() {
 
 // New Trip Cost with inputs
 function retrieveNewTripCost() {
-  let plannedTrip = instantiateNewTrip();
+  newTripIdCount = allTrips.trips.length + 1;
+  plannedTrip = instantiateNewTrip();
   allDestinations.destinations.forEach(dest => {
     if (dest.id === plannedTrip.destinationID) {
-      plannedTrip.getCostOfTrip(dest)
-    }
-  })
+      plannedTrip.getCostOfTrip(dest);
+    };
+  });
   let tripWithAgentFee = plannedTrip.cost + currentTraveler.calcAgentFee(plannedTrip.cost);
   let totalForTrip = tripWithAgentFee.toFixed(2);
   domUpdates.displayNewTripCost(totalForTrip);
@@ -144,14 +150,20 @@ function retrieveNewTripCost() {
 function instantiateNewTrip() {
   let date = document.querySelector(".select-date").value.split("-");
   let dateCorrect = `${date[0]}/${date[1]}/${date[2]}`
-  let duration = document.querySelector(".enter-duration").value;
-  let travelers = document.querySelector(".number-travelers").value;
+  let duration = parseInt(document.querySelector(".enter-duration").value);
+  let travelers = parseInt(document.querySelector(".number-travelers").value);
   let destination = parseInt(document.querySelector(".possible-destination").value);
-  let trip = {id: newTripIdCount, userID:currentTraveler.id, destinationID: destination, travelers: travelers, date: dateCorrect, duration: duration, status: 'pending', suggestedActivities: []};
-  let newTrip = new Trip(trip);
+  tripObj = {id: newTripIdCount, userID:currentTraveler.id, destinationID: destination, travelers: travelers, date: dateCorrect, duration: duration, status: "pending", suggestedActivities: []}
+  let newTrip = new Trip(tripObj);
   return newTrip;
 }
 
+function submitRequest() {
+  fetchData.addNewTripForTraveler(tripObj)
+  .then(data => {
+    gatherAPIInfo();
+  })
+}
 
 
 

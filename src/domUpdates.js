@@ -23,12 +23,14 @@ let domUpdates = {
 
   displayTotalTravelerSpendings(total) {
     let totalSpent = document.querySelector(".total-spent");
+    totalSpent.innerText = ""
     totalSpent.innerText =
       `You have spent $${total} in 2020.`
   },
 
   displayCurrentTravelerTrip(traveler, destinations) {
     let current = document.querySelector(".current-trip");
+    current.innerHTML = "";
     if (traveler.currentTrips[0] === undefined) {
       current.innerHTML = `<p>You shouldn\'t be on a trip right now. Maybe you should plan your next one if you don\'t have any upcoming trips either!!</p>`
     } else {
@@ -45,6 +47,7 @@ let domUpdates = {
 
   displayUpcomingTrips(traveler, destinations) {
     let upcoming = document.querySelector(".upcoming-trips-container");
+    upcoming.innerHTML = "";
     if (traveler.upcomingTrips[0] === undefined) {
       upcoming.innerHTML = `<p>You don\'t have any upcoming trips, click PLAN A TRIP to plan your next trip!!</p>`
     } else {
@@ -63,6 +66,7 @@ let domUpdates = {
 
   displayPendingTrips(traveler, destinations) {
     let pending = document.querySelector(".pending-trips-container");
+    pending.innerHTML = "";
     if (traveler.pendingTrips[0] === undefined) {
       pending.innerHTML = `<p>You don\'t have any pending trips, click PLAN A TRIP to plan your next trip!!</p>`
     } else {
@@ -81,6 +85,7 @@ let domUpdates = {
 
   displayPastTrips(traveler, destinations) {
     let past = document.querySelector(".past-trips-container");
+    past.innerHTML = "";
     if (traveler.pastTrips[0] === undefined) {
       past.innerHTML = `<p>You don\'t have any past trips, click PLAN A TRIP to plan your next trip!!</p>`
     } else {
