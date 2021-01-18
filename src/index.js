@@ -1,21 +1,13 @@
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
-// API Data
 import fetchData from './fetchRequest.js';
 
-// DOM Updates
 import domUpdates from './domUpdates.js';
 
-// Classes
 import Destination from './destination.js';
 import Traveler from './traveler.js';
 import Trip from './trip.js';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-// import './images/turing-logo.png'
-
-// Global Variables
 let allDestinations;
 let allTravelers;
 let allTrips;
@@ -25,14 +17,18 @@ let newTripIdCount;
 let plannedTrip;
 let tripObj;
 let travelerDestinations;
+
+let allInputs = document.querySelectorAll(".input");
 let calcNewTripCost = document.querySelector(".calc-cost");
 let submitTripRequest = document.querySelector(".submit-request");
 
-
-// Eventlisteners
 window.addEventListener("load", gatherAPIInfo);
 calcNewTripCost.addEventListener("click", retrieveNewTripCost);
 submitTripRequest.addEventListener("click", submitRequest);
+allInputs.forEach(input => {
+  input.addEventListener("keyup", checkIfAllFilledOut);
+  input.addEventListener("click", checkIfAllFilledOut);
+})
 
 function gatherAPIInfo() {
   Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(3)])
@@ -49,9 +45,6 @@ function gatherAPIInfo() {
     })
 }
 
-// let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
-
-// Greet Traveler
 function greetTraveler(traveler) {
   domUpdates.welcomeTraveler(traveler);
   domUpdates.getTodaysDate();
@@ -125,7 +118,6 @@ function filterDestinationsByTravelerTrips() {
   })
 };
 
-// Call domUpdates functions on load
 function displayTravelerTrips() {
   domUpdates.displayCurrentTravelerTrip(currentTraveler, travelerDestinations);
   domUpdates.displayUpcomingTrips(currentTraveler, travelerDestinations);
@@ -133,7 +125,12 @@ function displayTravelerTrips() {
   domUpdates.displayPastTrips(currentTraveler, travelerDestinations);
 }
 
-// New Trip Cost with inputs
+function checkIfAllFilledOut() {
+  if (allInputs[1].value != "" && allInputs[2].value != "") {
+    calcNewTripCost.disabled = false
+  }
+}
+
 function retrieveNewTripCost() {
   newTripIdCount = allTrips.trips.length + 1;
   plannedTrip = instantiateNewTrip();
@@ -144,7 +141,8 @@ function retrieveNewTripCost() {
   });
   let tripWithAgentFee = plannedTrip.cost + currentTraveler.calcAgentFee(plannedTrip.cost);
   let totalForTrip = tripWithAgentFee.toFixed(2);
-  domUpdates.displayNewTripCost(totalForTrip);
+  domUpdates.displayNewTripCost(totalForTrip, allInputs);
+  document.querySelector(".submit-request").disabled = false;
 }
 
 function instantiateNewTrip() {
@@ -175,8 +173,12 @@ function submitRequest() {
   domUpdates.removeTripCostAfterRequestedClearInputs();
 }
 
+
+
+
+// delete fetch request, not implemented yet just used when creating too many new trips when figuring out post request
 function deleteTrip() {
-  return fetch(`http://localhost:3001/api/v1/trips/201`, {
+  return fetch(`http://localhost:3001/api/v1/trips/<id>`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json'

@@ -1,10 +1,7 @@
+@import "variables";
 @import "mixins";
 @import "cards";
 @import "inputField";
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: rgb(255, 221, 210);
-$primary-color: rgb(35, 61, 77);
-$primary-font: "Quicksand", sans-serif;
 
 body {
   background: $primary-background;
@@ -30,6 +27,14 @@ header {
   display: grid;
   grid-template-columns: 3fr 3fr;
   grid-template-areas: "greeting title";
+}
+
+.greeting {
+  grid-area: greeting;
+}
+
+.title {
+  grid-area: title;
 }
 
 .greeting,
@@ -58,15 +63,15 @@ header {
 aside {
   grid-area: aside;
   padding: 10px 10px 0;
-  border-bottom: 1px solid rgb(140, 173, 167);
+  border-bottom: $primary-border;
   min-width: 30vw;
 }
 
 main {
   grid-area: main;
   padding: 10px;
-  border-bottom: 1px solid rgb(140, 173, 167);
-  border-left: 1px solid rgb(140, 173, 167);
+  border-bottom: $primary-border;
+  border-left: $primary-border;
   max-width: 70vw;
 }
 
@@ -76,7 +81,7 @@ main {
 .upcoming-trips-title {
   text-align: center;
   padding: 10px;
-  border: 1px solid rgb(140, 173, 167);
+  border: $primary-border;
 }
 
 footer {
