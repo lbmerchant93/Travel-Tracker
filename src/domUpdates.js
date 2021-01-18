@@ -38,9 +38,9 @@ let domUpdates = {
       let splitDestName = foundDest.destination.split(", ");
       let dateSplit = traveler.currentTrips[0].date.split("/");
       current.innerHTML = `<div class="current card">
-        <p>this is a place holder for the image</p>
+        <img class="card-image" src="${destination.image}" alt="${destination.alt}">
         <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
-        <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${traveler.currentTrips[0].travelers}</p>
+        <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${trip.duration} <br> Number of travelers: ${traveler.currentTrips[0].travelers}</p>
       </div>`
     }
   },
@@ -56,9 +56,9 @@ let domUpdates = {
         let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
         upcoming.innerHTML += `<div class="upcoming card">
-          <p>this is a place holder for the image</p>
+          <img class="card-image" src="${foundDest.image}" alt="${foundDest.alt}">
           <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
-          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
+          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${trip.duration} <br> Number of travelers: ${trip.travelers}</p>
         </div>`
       })
     }
@@ -75,9 +75,9 @@ let domUpdates = {
         let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
         pending.innerHTML += `<div class="upcoming card">
-          <p>this is a place holder for the image</p>
+          <img class="card-image" src="${foundDest.image}" alt="${foundDest.alt}">
           <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
-          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
+          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${trip.duration} <br> Number of travelers: ${trip.travelers}</p>
         </div>`
       })
     }
@@ -94,9 +94,9 @@ let domUpdates = {
         let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
         past.innerHTML += `<div class="upcoming card">
-          <p>this is a place holder for the image</p>
+          <img class="card-image" src="${foundDest.image}" alt="${foundDest.alt}">
           <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
-          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
+          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${trip.duration} <br> Number of travelers: ${trip.travelers}</p>
         </div>`
       })
     }
