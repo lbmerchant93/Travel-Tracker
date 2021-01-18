@@ -70,6 +70,7 @@ function filterForTraveler() {
 
 // Filter Trips Matching Traveler's id
 function filterTripsForTraveler() {
+  console.log(allTrips, 'merp')
   let foundTrips = allTrips.trips.filter(trip => {
     return trip.userID === currentTraveler.id;
   })
@@ -89,6 +90,7 @@ function catagorizeTrips() {
 function getTravelerPendingTrips() {
   travelerTrips.forEach(trip => {
     if(trip.status === "pending"){
+      currentTraveler.addTrip('pendingTrips', trip);
       pendingTrips.push(trip)
     }
   })
@@ -103,12 +105,13 @@ function assignTripsToCorrectCatagory() {
     let startInMil = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2]).getTime();
     let today = new Date().getTime();
     if (startInMil < today && today < tripEnd) {
-      currentTrip = trip;
+      currentTraveler.addTrip('currentTrips', trip);
     } else if (startInMil > today) {
-      upcomingTrips.push(trip);
+      currentTraveler.addTrip('upcomingTrips', trip);
     } else {
-      pastTrips.push(trip);
+      currentTraveler.addTrip('pastTrips', trip);
     }
+    console.log(currentTraveler,'llll');
   })
   // console.log(currentTrip, 'current')
   // console.log(pastTrips, 'past')
@@ -134,10 +137,10 @@ function filterDestinationsByTravelerTrips() {
 
 // Call domUpdates functions on load
 function displayTravelerTrips() {
-  domUpdates.displayCurrentTravelerTrip(currentTrip, travelerDestinations);
-  domUpdates.displayUpcomingTrips(upcomingTrips, travelerDestinations);
-  domUpdates.displayPendingTrips(pendingTrips, travelerDestinations);
-  domUpdates.displayPastTrips(pastTrips, travelerDestinations);
+  domUpdates.displayCurrentTravelerTrip(currentTraveler, travelerDestinations);
+  domUpdates.displayUpcomingTrips(currentTraveler, travelerDestinations);
+  domUpdates.displayPendingTrips(currentTraveler, travelerDestinations);
+  domUpdates.displayPastTrips(currentTraveler, travelerDestinations);
   // console.log(currentTrip)
   // console.log(upcomingTrips)
 }

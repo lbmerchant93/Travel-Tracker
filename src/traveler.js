@@ -29,7 +29,6 @@ class Traveler {
       acc += trip.cost
       return acc;
     }, 0);
-    // console.log(spent);
     return spent;
   }
 

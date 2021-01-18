@@ -25,28 +25,28 @@ let domUpdates = {
       `You have spent $${total} this year.`
   },
 
-  displayCurrentTravelerTrip(trip, destinations) {
+  displayCurrentTravelerTrip(traveler, destinations) {
     let current = document.querySelector(".current-trip");
-    if (trip === undefined) {
+    if (traveler.currentTrips[0] === undefined) {
       current.innerHTML = `<p>You shouldn\'t be on a trip right now. Maybe you should plan your next one if you don\'t have any upcoming trips either!!</p>`
     } else {
-      let foundDest = findDestinationBasedOnTrip(trip, destinations);
+      let foundDest = findDestinationBasedOnTrip(traveler.currentTrips[0], destinations);
       let splitDestName = foundDest.destination.split(", ");
-      let dateSplit = trip.date.split("/");
+      let dateSplit = traveler.currentTrips[0].date.split("/");
       current.innerHTML = `<div class="current card">
         <p>this is a place holder for the image</p>
         <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
-        <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
+        <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${traveler.currentTrips[0].travelers}</p>
       </div>`
     }
   },
 
-  displayUpcomingTrips(trips, destinations) {
+  displayUpcomingTrips(traveler, destinations) {
     let upcoming = document.querySelector(".upcoming-trips-container");
-    if (trips[0] === undefined) {
+    if (traveler.upcomingTrips[0] === undefined) {
       upcoming.innerHTML = `<p>You don\'t have any upcoming trips, click PLAN A TRIP to plan your next trip!!</p>`
     } else {
-      trips.forEach(trip => {
+      traveler.upcomingTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
         let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
@@ -59,12 +59,12 @@ let domUpdates = {
     }
   },
 
-  displayPendingTrips(trips, destinations) {
+  displayPendingTrips(traveler, destinations) {
     let pending = document.querySelector(".pending-trips-container");
-    if (trips[0] === undefined) {
+    if (traveler.pendingTrips[0] === undefined) {
       pending.innerHTML = `<p>You don\'t have any pending trips, click PLAN A TRIP to plan your next trip!!</p>`
     } else {
-      trips.forEach(trip => {
+      traveler.pendingTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
         let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
@@ -77,12 +77,12 @@ let domUpdates = {
     }
   },
 
-  displayPastTrips(trips, destinations) {
+  displayPastTrips(traveler, destinations) {
     let past = document.querySelector(".past-trips-container");
-    if (trips[0] === undefined) {
+    if (traveler.pastTrips[0] === undefined) {
       past.innerHTML = `<p>You don\'t have any past trips, click PLAN A TRIP to plan your next trip!!</p>`
     } else {
-      trips.forEach(trip => {
+      traveler.pastTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
         let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
