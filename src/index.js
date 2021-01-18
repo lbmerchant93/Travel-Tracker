@@ -86,7 +86,7 @@ function catagorizeTrips() {
 
 function getTravelerPendingTrips() {
   travelerTrips.forEach(trip => {
-    if(trip.status === "pending"){
+    if (trip.status === "pending") {
       currentTraveler.addTrip('pendingTrips', trip);
     }
   })
@@ -95,9 +95,9 @@ function getTravelerPendingTrips() {
 function assignTripsToCorrectCatagory() {
   travelerTrips.forEach(trip => {
     let dateSplit = trip.date.split("/");
-    let startDate = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2])
+    let startDate = new Date(dateSplit[0], (dateSplit[1] - 1), dateSplit[2])
     let tripEnd = startDate.setDate(startDate.getDate() + trip.duration);
-    let startInMil = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2]).getTime();
+    let startInMil = new Date(dateSplit[0], (dateSplit[1] - 1), dateSplit[2]).getTime();
     let today = new Date().getTime();
     if (startInMil < today && today < tripEnd) {
       currentTraveler.addTrip('currentTrips', trip);
@@ -153,20 +153,40 @@ function instantiateNewTrip() {
   let duration = parseInt(document.querySelector(".enter-duration").value);
   let travelers = parseInt(document.querySelector(".number-travelers").value);
   let destination = parseInt(document.querySelector(".possible-destination").value);
-  tripObj = {id: newTripIdCount, userID:currentTraveler.id, destinationID: destination, travelers: travelers, date: dateCorrect, duration: duration, status: "pending", suggestedActivities: []}
+  tripObj = {
+    id: newTripIdCount,
+    userID: currentTraveler.id,
+    destinationID: destination,
+    travelers: travelers,
+    date: dateCorrect,
+    duration: duration,
+    status: "pending",
+    suggestedActivities: []
+  }
   let newTrip = new Trip(tripObj);
   return newTrip;
 }
 
 function submitRequest() {
   fetchData.addNewTripForTraveler(tripObj)
-  .then(data => {
-    gatherAPIInfo();
-  })
+    .then(data => {
+      gatherAPIInfo();
+    });
+  domUpdates.removeTripCostAfterRequestedClearInputs();
 }
 
-
-
+function deleteTrip() {
+  return fetch(`http://localhost:3001/api/v1/trips/201`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json'
+      },
+    })
+    .then(response => response.json())
+    .catch(err => {
+      alert("Sorry! We are having trouble getting the data, try again later!")
+    })
+}
 
 
 

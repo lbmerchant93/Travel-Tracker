@@ -119,6 +119,14 @@ let domUpdates = {
     newTripCost.innerHTML = `
     <p> This trip will cost $${cost} (including the agent fee) <p>
     `;
+  },
+
+  removeTripCostAfterRequestedClearInputs(){
+    document.querySelector(".new-trip-cost").innerHTML = "";
+    document.querySelector(".select-date").value = "";
+    document.querySelector(".enter-duration").value = "";
+    document.querySelector(".number-travelers").value = "";
+    document.querySelector(".possible-destination").value = "0";
   }
 
 }
