@@ -80,4 +80,8 @@ describe('Traveler', () => {
     it('should have a method to total the cost a trip will be for the amount of travelers and duration of trip', () => {
       expect(traveler1.tripCosts(sampleTrips, sampleDests)).to.equal(3640);
     })
+    
+    it('should have a method to calculate the agent fee for a trip 10%', () => {
+      expect(traveler1.calcAgentFee(3640)).to.equal(364);
+    })
 });

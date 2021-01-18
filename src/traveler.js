@@ -31,13 +31,11 @@ class Traveler {
       })
       return acc;
     }, 0);
-    console.log(spent)
     return spent;
   }
 
   calcAgentFee(cost) {
     let agentFee = cost * 0.1;
-    console.log(agentFee)
     return agentFee;
   }
 }
