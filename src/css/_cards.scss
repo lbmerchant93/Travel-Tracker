@@ -1,0 +1,10 @@
+.upcoming-trips-container,
+.pending-trips-container,
+.past-trips-container {
+  @include flex(row);
+  flex-wrap: wrap;
+}
+.card {
+  margin: 5px;
+  border: 1px solid rgb(140, 173, 167);
+}

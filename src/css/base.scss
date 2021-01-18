@@ -1,3 +1,6 @@
+@import "mixins";
+@import "cards";
+
 /* This is an example of using Sass, otherwise plain CSS works too*/
 $primary-background: rgb(255, 221, 210);
 $primary-color: rgb(35, 61, 77);
@@ -48,21 +51,20 @@ aside {
   border-bottom: 1px solid rgb(140, 173, 167);
 
 }
-.current-trips-title {
-  border: 1px solid rgb(140, 173, 167);
-}
 
 main {
   grid-area: main;
-  padding: 10px 10px 0 10px;
+  padding: 10px;
   border-bottom: 1px solid rgb(140, 173, 167);
   border-left: 1px solid rgb(140, 173, 167);
 }
 
-
+.current-trips-title,
 .upcoming-trips-title,
 .pending-trips-title,
 .past-trips-title {
+  text-align: center;
+  padding: 10px;
   border: 1px solid rgb(140, 173, 167);
 }
 
