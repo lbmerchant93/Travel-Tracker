@@ -22,7 +22,7 @@ let domUpdates = {
   displayTotalTravelerSpendings(total) {
     let totalSpent = document.querySelector(".total-spent");
     totalSpent.innerText =
-      `You have spent $${total} this year.`
+      `You have spent $${total} in 2020.`
   },
 
   displayCurrentTravelerTrip(traveler, destinations) {
@@ -94,6 +94,20 @@ let domUpdates = {
       })
     }
   },
+
+  populateDestinationsInput(destinations) {
+    let destinationsInput = document.querySelector(".possible-destination");
+    let count = 1;
+    destinations.destinations.forEach(dest => {
+      count += 1;
+      let destinationOption = `
+      <option value="${count}">
+        ${dest.destination}
+      </option>
+      `
+      destinationsInput.insertAdjacentHTML("beforeend", destinationOption);
+    })
+  }
 
 }
 

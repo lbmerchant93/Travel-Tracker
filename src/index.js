@@ -39,6 +39,7 @@ function gatherAPIInfo() {
       allTravelers = data[1];
       allTrips = data[2];
       currentTraveler = new Traveler(data[3]);
+      domUpdates.populateDestinationsInput(allDestinations);
       filterForTraveler();
       catagorizeTrips();
       greetTraveler(currentTraveler);

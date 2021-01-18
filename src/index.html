@@ -21,19 +21,18 @@
     </div>
   </header>
   <section class="request-trip-container">
-    <label for="select-date">Select Start Date:</label>
-    <input type="date" class="select-date" name="select-date" min="2021-01-01" max="2030-12-31" />
-    <label for="enter-duration">Duration (in days):</label>
-    <input type="number" class="enter-duration" name="enter-duration" min="1"/>
-    <label for="number-travelers">Travelers:</label>
-    <input type="number" class="number-travelers" name="number-travelers" min="1" />
-    <label for="possible-destinations">Choose A Destination</label>
+    <label for="select-date">Select Start Date:<input type="date" class="select-date" name="select-date" min="2021-01-01" max="2030-12-31" /></label>
+    <label for="enter-duration">Duration (in days):<input type="number" class="enter-duration" name="enter-duration" min="1" placeholder="Duration"/></label>
+    <label for="number-travelers">Travelers:<input type="number" class="number-travelers" name="number-travelers" min="1" placeholder="Travelers"/></label>
+    <label for="possible-destinations">Choose A Destination
     <select class="possible-destination" name="possible-destination">
       <option value="1">
         Choose Destination
       </option>
     </select>
-    <input type="submit" value="Submit Request" />
+    </label>
+    <label for="calc-cost"><input type="submit" class="calc-cost" name="calc-cost" value="Calculate Trip Cost"></label>
+    <label for="submit"><input type="submit" name="submit" value="Submit Request" /></label>
   </section>
   <aside>
     <div class="current-trips">
