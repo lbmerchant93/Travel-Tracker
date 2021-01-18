@@ -47,6 +47,7 @@ function gatherAPIInfo() {
       catagorizeTrips();
       greetTraveler(currentTraveler);
       displayTravelerTrips();
+    console.log(travelerTrips)
     })
 }
 let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
@@ -121,6 +122,7 @@ function filterDestinationsByTravelerTrips() {
     allDestinations.destinations.forEach(dest => {
       if (dest.id === trip.destinationID) {
         foundDestinations.push(dest);
+        trip.getCostOfTrip(dest)
       }
     })
   })

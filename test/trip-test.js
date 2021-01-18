@@ -5,13 +5,16 @@ const expect = chai.expect;
 import Trip from '../src/trip';
 import sampleData from '../test/sampleData.js';
 const sampleTripData = sampleData.sampleTripData;
+const sampleDestinationData = sampleData.sampleDestinationData;
 
 describe('Trip', () => {
-  let trip1, trip2;
+  let trip1, trip2, destination1, destination2;
 
   beforeEach(() => {
     trip1 = new Trip(sampleTripData[0]);
     trip2 = new Trip(sampleTripData[1]);
+    destination1 = sampleDestinationData[0];
+    destination2 = sampleDestinationData[6];
   });
 
   it('should be a function', () => {
@@ -37,4 +40,11 @@ describe('Trip', () => {
     expect(trip2.status).to.equal("approved");
     expect(trip2.suggestedActivities).to.deep.equal([]);
   });
+
+  it('should have a method to get the cost of the trip due to traveler amount and duration based on the destination\'s flight and lodging costs', () => {
+    trip1.getCostOfTrip(destination1);
+    trip2.getCostOfTrip(destination2);
+    expect(trip1.cost).to.equal(2250);
+    expect(trip2.cost).to.equal(1390);
+  })
 });

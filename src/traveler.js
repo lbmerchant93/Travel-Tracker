@@ -26,17 +26,9 @@ class Traveler {
 
   tripCosts(trips, destinations) {
     let spent = trips.reduce((acc, trip) => {
-      destinations.forEach(dest => {
-        if (trip.destinationID === dest.id) {
-          let flightTotal = trip.travelers * dest.estimatedFlightCostPerPerson;
-          let lodgingTotal = trip.duration * dest.estimatedLodgingCostPerDay;
-          acc += flightTotal;
-          acc += lodgingTotal;
-        }
-      })
+      acc += trip.cost
       return acc;
     }, 0);
-    // console.log(tripsPerYear)
     // console.log(spent);
     return spent;
   }

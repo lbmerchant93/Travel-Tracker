@@ -2,6 +2,7 @@ import chai from 'chai';
 const expect = chai.expect;
 
 import Traveler from '../src/traveler';
+import Trip from '../src/trip';
 import sampleData from '../test/sampleData.js'
 const sampleTravelerData = sampleData.sampleTravelerData;
 const sampleTripData = sampleData.sampleTripData;
@@ -13,10 +14,10 @@ describe('Traveler', () => {
   beforeEach(() => {
     traveler1 = new Traveler(sampleTravelerData[0]);
     traveler2 = new Traveler(sampleTravelerData[1]);
-    trip1 = sampleTripData[0];
-    trip2 = sampleTripData[1];
-    trip3 = sampleTripData[2];
-    trip4 = sampleTripData[3];
+    trip1 = new Trip(sampleTripData[0]);
+    trip2 = new Trip(sampleTripData[1]);
+    trip3 = new Trip(sampleTripData[2]);
+    trip4 = new Trip(sampleTripData[3]);
     destination1 = sampleDestinationData[0];
     destination2 = sampleDestinationData[6];
     sampleTrips = [trip1, trip3, trip4];
@@ -59,6 +60,7 @@ describe('Traveler', () => {
       "userID": 1,
       "destinationID": 1,
       "travelers": 3,
+      "cost": 0,
       "date": "2020/01/09",
       "duration": 15,
       "status": "approved",
@@ -71,6 +73,7 @@ describe('Traveler', () => {
       "userID": 2,
       "destinationID": 7,
       "travelers": 2,
+      "cost": 0,
       "date": "2020/03/05",
       "duration": 6,
       "status": "approved",
@@ -84,6 +87,7 @@ describe('Traveler', () => {
         userID: 1,
         destinationID: 1,
         travelers: 3,
+        cost: 0,
         date: '2020/01/09',
         duration: 15,
         status: 'approved',
@@ -94,6 +98,7 @@ describe('Traveler', () => {
         userID: 1,
         destinationID: 7,
         travelers: 2,
+        cost: 0,
         date: '2020/03/05',
         duration: 6,
         status: 'approved',
@@ -103,7 +108,9 @@ describe('Traveler', () => {
   })
 
   it('should have a method to total the cost a years trips will be for the amount of travelers and duration of trips', () => {
-    let trips2020 = traveler1.filterTripsByYear(2020, sampleTrips)
+    let trips2020 = traveler1.filterTripsByYear(2020, sampleTrips);
+    trip1.getCostOfTrip(destination1);
+    trip3.getCostOfTrip(destination2);
     expect(traveler1.tripCosts(trips2020, sampleDests)).to.equal(3640);
   })
 
