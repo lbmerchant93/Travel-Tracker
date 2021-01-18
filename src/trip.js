@@ -16,7 +16,7 @@ class Trip {
     let flightTotal = this.travelers * destination.estimatedFlightCostPerPerson;
     let lodgingTotal = this.duration * destination.estimatedLodgingCostPerDay;
     acc += flightTotal;
-    acc += lodgingTotal;
+    acc += lodgingTotal; 
     this.cost = acc;
   }
 }

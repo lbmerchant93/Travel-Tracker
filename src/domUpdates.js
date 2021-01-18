@@ -3,6 +3,8 @@ let upcomingTravelerTrips = document.querySelector(".upcoming-trips");
 let currentTravelerTrips = document.querySelector(".current-trips");
 let pendingTravelerTrips = document.querySelector(".pending-trips");
 let pastTravelerTrips = document.querySelector(".past-trips");
+// let calcNewTripCost = document.querySelector(".calc-cost");
+// calcNewTripCost.addEventListener("click", retrieveNewTripCost);
 
 // Functions to update the DOM go here
 let domUpdates = {
@@ -21,12 +23,14 @@ let domUpdates = {
 
   displayTotalTravelerSpendings(total) {
     let totalSpent = document.querySelector(".total-spent");
+    totalSpent.innerText = ""
     totalSpent.innerText =
-      `You have spent $${total} this year.`
+      `You have spent $${total} in 2020.`
   },
 
   displayCurrentTravelerTrip(traveler, destinations) {
     let current = document.querySelector(".current-trip");
+    current.innerHTML = "";
     if (traveler.currentTrips[0] === undefined) {
       current.innerHTML = `<p>You shouldn\'t be on a trip right now. Maybe you should plan your next one if you don\'t have any upcoming trips either!!</p>`
     } else {
@@ -34,15 +38,16 @@ let domUpdates = {
       let splitDestName = foundDest.destination.split(", ");
       let dateSplit = traveler.currentTrips[0].date.split("/");
       current.innerHTML = `<div class="current card">
-        <p>this is a place holder for the image</p>
+        <img class="card-image" src="${destination.image}" alt="${destination.alt}">
         <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
-        <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${traveler.currentTrips[0].travelers}</p>
+        <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${trip.duration} <br> Number of travelers: ${traveler.currentTrips[0].travelers}</p>
       </div>`
     }
   },
 
   displayUpcomingTrips(traveler, destinations) {
     let upcoming = document.querySelector(".upcoming-trips-container");
+    upcoming.innerHTML = "";
     if (traveler.upcomingTrips[0] === undefined) {
       upcoming.innerHTML = `<p>You don\'t have any upcoming trips, click PLAN A TRIP to plan your next trip!!</p>`
     } else {
@@ -51,9 +56,9 @@ let domUpdates = {
         let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
         upcoming.innerHTML += `<div class="upcoming card">
-          <p>this is a place holder for the image</p>
+          <img class="card-image" src="${foundDest.image}" alt="${foundDest.alt}">
           <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
-          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
+          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${trip.duration} <br> Number of travelers: ${trip.travelers}</p>
         </div>`
       })
     }
@@ -61,6 +66,7 @@ let domUpdates = {
 
   displayPendingTrips(traveler, destinations) {
     let pending = document.querySelector(".pending-trips-container");
+    pending.innerHTML = "";
     if (traveler.pendingTrips[0] === undefined) {
       pending.innerHTML = `<p>You don\'t have any pending trips, click PLAN A TRIP to plan your next trip!!</p>`
     } else {
@@ -69,9 +75,9 @@ let domUpdates = {
         let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
         pending.innerHTML += `<div class="upcoming card">
-          <p>this is a place holder for the image</p>
+          <img class="card-image" src="${foundDest.image}" alt="${foundDest.alt}">
           <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
-          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
+          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${trip.duration} <br> Number of travelers: ${trip.travelers}</p>
         </div>`
       })
     }
@@ -79,6 +85,7 @@ let domUpdates = {
 
   displayPastTrips(traveler, destinations) {
     let past = document.querySelector(".past-trips-container");
+    past.innerHTML = "";
     if (traveler.pastTrips[0] === undefined) {
       past.innerHTML = `<p>You don\'t have any past trips, click PLAN A TRIP to plan your next trip!!</p>`
     } else {
@@ -87,13 +94,40 @@ let domUpdates = {
         let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
         past.innerHTML += `<div class="upcoming card">
-          <p>this is a place holder for the image</p>
+          <img class="card-image" src="${foundDest.image}" alt="${foundDest.alt}">
           <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
-          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Number of travelers: ${trip.travelers}</p>
+          <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${trip.duration} <br> Number of travelers: ${trip.travelers}</p>
         </div>`
       })
     }
   },
+
+  populateDestinationsInput(destinations) {
+    let destinationsInput = document.querySelector(".possible-destination");
+    destinations.destinations.forEach(dest => {
+      let destinationOption = `
+      <option value="${dest.id}">
+        ${dest.destination}
+      </option>
+      `
+      destinationsInput.insertAdjacentHTML("beforeend", destinationOption);
+    })
+  },
+
+  displayNewTripCost(cost) {
+    let newTripCost = document.querySelector(".new-trip-cost");
+    newTripCost.innerHTML = `
+    <p> This trip will cost $${cost} (including the agent fee) <p>
+    `;
+  },
+
+  removeTripCostAfterRequestedClearInputs(){
+    document.querySelector(".new-trip-cost").innerHTML = "";
+    document.querySelector(".select-date").value = "";
+    document.querySelector(".enter-duration").value = "";
+    document.querySelector(".number-travelers").value = "";
+    document.querySelector(".possible-destination").value = "0";
+  }
 
 }
 

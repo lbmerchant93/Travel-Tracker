@@ -1,5 +1,6 @@
 @import "mixins";
 @import "cards";
+@import "inputField";
 /* This is an example of using Sass, otherwise plain CSS works too*/
 $primary-background: rgb(255, 221, 210);
 $primary-color: rgb(35, 61, 77);
@@ -11,8 +12,11 @@ body {
   font-weight: lighter;
   color: $primary-color;
   display: grid;
-  grid-template-column: 1fr 2.5fr 2.5fr;
-  grid-template-areas: "header header header" "aside main main" "footer footer footer";
+  grid-template-columns: 1fr 5fr;
+  grid-template-areas: "header header"
+  "request request"
+  "aside main"
+  "footer footer";
   height: 100vh;
   width: 100vw;
   margin: 0;
@@ -22,19 +26,22 @@ body {
 header {
   grid-area: header;
   padding: 0 10px 10px;
-  border-bottom: 1px solid rgb(140, 173, 167);
   font-size: small;
   display: grid;
-  align-items: flex-start;
-  grid-template-columns: 1fr 4fr 1fr;
-  grid-template-areas: "greeting plan title";
+  grid-template-columns: 3fr 3fr;
+  grid-template-areas: "greeting title";
 }
 
-.todays-date,
+.greeting,
+.title {
+  @include flex(column);
+  justify-content: flex-end;
+}
+
 .total-spent,
 .welcome-message {
-  // font-weight: lighter;
-  text-align: center;
+  margin: 0;
+  text-align: left;
 }
 
 .total-spent {
@@ -42,23 +49,16 @@ header {
   font-size: smaller;
 }
 
-.plan-trip {
+.site-title,
+.todays-date {
   margin: 0;
-  max-height: 30px;
-  align-self: flex-end;
-}
-
-.site-title {
-  margin: 0;
-  text-align: center;
-  font-size: 1.7em;
+  text-align: right;
 }
 
 aside {
   grid-area: aside;
   padding: 10px 10px 0;
   border-bottom: 1px solid rgb(140, 173, 167);
-  // max-width: 30vw;
   min-width: 30vw;
 }
 
