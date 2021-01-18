@@ -62,13 +62,12 @@ header {
 }
 
 label {
-  margin-right: 2px;
   align-self: center;
 }
 
 input,
 select {
-  margin-right: 5px;
+  margin: 0 5px 0 5px;
   max-height: 18px;
   align-self: center;
 }
