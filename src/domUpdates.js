@@ -22,7 +22,7 @@ let domUpdates = {
   displayTotalTravelerSpendings(total) {
     let totalSpent = document.querySelector(".total-spent");
     totalSpent.innerText =
-      `You have spent $${total} this year`
+      `You have spent $${total} this year.`
   },
 
   displayCurrentTravelerTrip(trip, destinations) {

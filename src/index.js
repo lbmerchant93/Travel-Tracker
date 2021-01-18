@@ -55,7 +55,7 @@ let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
 function greetTraveler(traveler) {
   domUpdates.welcomeTraveler(traveler);
   domUpdates.getTodaysDate();
-  let tripCosts = traveler.tripCosts(travelerTrips, travelerDestinations);
+  let tripCosts = traveler.tripCosts(travelerTrips, travelerDestinations, 2020);
   let agentFee = traveler.calcAgentFee(tripCosts);
   let sumSpent = tripCosts + agentFee;
   domUpdates.displayTotalTravelerSpendings(sumSpent.toFixed(2))

@@ -23,7 +23,7 @@ describe('Trip', () => {
     expect(trip1.userID).to.equal(1);
     expect(trip1.destinationID).to.equal(1);
     expect(trip1.travelers).to.equal(3);
-    expect(trip1.date).to.equal("2021/01/09");
+    expect(trip1.date).to.equal("2020/01/09");
     expect(trip1.duration).to.equal(15);
     expect(trip1.status).to.equal("approved");
     expect(trip1.suggestedActivities).to.deep.equal([]);

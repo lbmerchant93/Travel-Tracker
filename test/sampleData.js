@@ -33,7 +33,7 @@ const sampleTripData = [{
     "userID": 1,
     "destinationID": 1,
     "travelers": 3,
-    "date": "2021/01/09",
+    "date": "2020/01/09",
     "duration": 15,
     "status": "approved",
     "suggestedActivities": []
@@ -55,6 +55,16 @@ const sampleTripData = [{
     "travelers": 2,
     "date": "2020/03/05",
     "duration": 6,
+    "status": "approved",
+    "suggestedActivities": []
+  },
+  {
+    "id": 117,
+    "userID": 1,
+    "destinationID": 1,
+    "travelers": 3,
+    "date": "2021/01/09",
+    "duration": 15,
     "status": "approved",
     "suggestedActivities": []
   }

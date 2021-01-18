@@ -19,10 +19,15 @@ class Traveler {
     this[tripTiming].push(tripObject);
   }
 
+  filterTripsByYear(year, trips) {
+    let tripsPerYear = trips.filter(trip => trip.date.includes(year));
+    return tripsPerYear
+  }
+
   tripCosts(trips, destinations) {
     let spent = trips.reduce((acc, trip) => {
       destinations.forEach(dest => {
-        if(trip.destinationID === dest.id){
+        if (trip.destinationID === dest.id) {
           let flightTotal = trip.travelers * dest.estimatedFlightCostPerPerson;
           let lodgingTotal = trip.duration * dest.estimatedLodgingCostPerDay;
           acc += flightTotal;
@@ -31,6 +36,8 @@ class Traveler {
       })
       return acc;
     }, 0);
+    // console.log(tripsPerYear)
+    // console.log(spent);
     return spent;
   }
 
