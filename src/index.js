@@ -84,7 +84,6 @@ function getTravelerPendingTrips() {
   travelerTrips.forEach(trip => {
     if(trip.status === "pending"){
       currentTraveler.addTrip('pendingTrips', trip);
-      pendingTrips.push(trip)
     }
   })
 }
