@@ -1,0 +1,5 @@
+@mixin flex($dir) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: center;
+}

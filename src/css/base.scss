@@ -1,35 +1,45 @@
+@import "mixins";
+@import "cards";
 /* This is an example of using Sass, otherwise plain CSS works too*/
 $primary-background: rgb(255, 221, 210);
 $primary-color: rgb(35, 61, 77);
 $primary-font: "Quicksand", sans-serif;
 
-
 body {
   background: $primary-background;
   font-family: $primary-font;
+  font-weight: lighter;
   color: $primary-color;
   display: grid;
   grid-template-column: 1fr 2.5fr 2.5fr;
-  grid-template-areas:
-  "header header header"
-  "aside main main"
-  "footer footer footer";
+  grid-template-areas: "header header header" "aside main main" "footer footer footer";
   height: 100vh;
   width: 100vw;
   margin: 0;
-padding: 0;
+  padding: 0;
 }
 
 header {
   grid-area: header;
-  padding: 0 10px 10px 10px;
+  padding: 0 10px 10px;
   border-bottom: 1px solid rgb(140, 173, 167);
   font-size: small;
   display: grid;
   align-items: flex-start;
   grid-template-columns: 1fr 4fr 1fr;
-  grid-template-areas:
-  "greeting plan title"
+  grid-template-areas: "greeting plan title";
+}
+
+.todays-date,
+.total-spent,
+.welcome-message {
+  // font-weight: lighter;
+  text-align: center;
+}
+
+.total-spent {
+  margin-top: 5px;
+  font-size: smaller;
 }
 
 .plan-trip {
@@ -40,29 +50,32 @@ header {
 
 .site-title {
   margin: 0;
+  text-align: center;
+  font-size: 1.7em;
 }
 
 aside {
   grid-area: aside;
-  padding: 10px 10px 0 10px;
+  padding: 10px 10px 0;
   border-bottom: 1px solid rgb(140, 173, 167);
-
-}
-.current-trips-title {
-  border: 1px solid rgb(140, 173, 167);
+  // max-width: 30vw;
+  min-width: 30vw;
 }
 
 main {
   grid-area: main;
-  padding: 10px 10px 0 10px;
+  padding: 10px;
   border-bottom: 1px solid rgb(140, 173, 167);
   border-left: 1px solid rgb(140, 173, 167);
+  max-width: 70vw;
 }
 
-
-.upcoming-trips-title,
+.current-trips-title,
+.past-trips-title,
 .pending-trips-title,
-.past-trips-title {
+.upcoming-trips-title {
+  text-align: center;
+  padding: 10px;
   border: 1px solid rgb(140, 173, 167);
 }
 
@@ -74,7 +87,7 @@ footer {
   align-items: flex-end;
 }
 
-
-
-
+button {
+  cursor: pointer;
+}
 //

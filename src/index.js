@@ -22,10 +22,6 @@ let allTrips;
 let currentTraveler;
 let travelerTrips;
 let travelerDestinations;
-let pastTrips = [];
-let upcomingTrips = [];
-let pendingTrips = [];
-let currentTrip;
 
 // QuerySelectors
 // let destinationsDOM = document.querySelector(".destinations");
@@ -55,32 +51,10 @@ let randomTraveler = Math.floor(Math.random() * Math.floor(40)) + 1;
 function greetTraveler(traveler) {
   domUpdates.welcomeTraveler(traveler);
   domUpdates.getTodaysDate();
-  let tripCosts = travelerTotalSpent();
-  let agentFee = calcAgentFee(travelerTotalSpent());
+  let tripCosts = traveler.tripCosts(travelerTrips, travelerDestinations, 2020);
+  let agentFee = traveler.calcAgentFee(tripCosts);
   let sumSpent = tripCosts + agentFee;
   domUpdates.displayTotalTravelerSpendings(sumSpent.toFixed(2))
-}
-
-function travelerTotalSpent() {
-  let spent = travelerTrips.reduce((acc, trip) => {
-    travelerDestinations.forEach(dest => {
-      if(trip.destinationID === dest.id){
-        let flightTotal = trip.travelers * dest.estimatedFlightCostPerPerson;
-        let lodgingTotal = trip.duration * dest.estimatedLodgingCostPerDay;
-        acc += flightTotal;
-        acc += lodgingTotal;
-      }
-    })
-    return acc;
-  }, 0);
-  // console.log(spent);
-  return spent;
-}
-
-function calcAgentFee(cost) {
-  let agentFee = cost * 0.1;
-  // console.log(agentFee.toFixed(2))
-  return agentFee;
 }
 
 // Filter Trips and Destinations for TRAVELERS
@@ -98,7 +72,6 @@ function filterTripsForTraveler() {
     let tripInstantiation = new Trip(trip);
     return tripInstantiation;
   })
-  console.log(travelerTrips)
 };
 
 // Assign Traveler's Trips to correct area
@@ -110,10 +83,10 @@ function catagorizeTrips() {
 function getTravelerPendingTrips() {
   travelerTrips.forEach(trip => {
     if(trip.status === "pending"){
+      currentTraveler.addTrip('pendingTrips', trip);
       pendingTrips.push(trip)
     }
   })
-  // console.log(pendingTrips, 'A')
 }
 
 function assignTripsToCorrectCatagory() {
@@ -124,16 +97,13 @@ function assignTripsToCorrectCatagory() {
     let startInMil = new Date(dateSplit[0], (dateSplit[1]-1), dateSplit[2]).getTime();
     let today = new Date().getTime();
     if (startInMil < today && today < tripEnd) {
-      currentTrip = trip;
+      currentTraveler.addTrip('currentTrips', trip);
     } else if (startInMil > today) {
-      upcomingTrips.push(trip);
+      currentTraveler.addTrip('upcomingTrips', trip);
     } else {
-      pastTrips.push(trip);
+      currentTraveler.addTrip('pastTrips', trip);
     }
   })
-  // console.log(currentTrip, 'current')
-  // console.log(pastTrips, 'past')
-  // console.log(upcomingTrips, 'upcoming')
 }
 
 // Filter Destinations Matching Traveler's Trips
@@ -143,22 +113,21 @@ function filterDestinationsByTravelerTrips() {
     allDestinations.destinations.forEach(dest => {
       if (dest.id === trip.destinationID) {
         foundDestinations.push(dest);
+        trip.getCostOfTrip(dest)
       }
     })
   })
   travelerDestinations = foundDestinations.map(dest => {
     return new Destination(dest)
   })
-  console.log(travelerDestinations)
 };
 
 // Call domUpdates functions on load
 function displayTravelerTrips() {
-  domUpdates.displayCurrentTravelerTrip(currentTrip, travelerDestinations);
-  domUpdates.displayUpcomingTrips(upcomingTrips, travelerDestinations);
-  domUpdates.displayPendingTrips(pendingTrips, travelerDestinations);
-  // console.log(currentTrip)
-  // console.log(upcomingTrips)
+  domUpdates.displayCurrentTravelerTrip(currentTraveler, travelerDestinations);
+  domUpdates.displayUpcomingTrips(currentTraveler, travelerDestinations);
+  domUpdates.displayPendingTrips(currentTraveler, travelerDestinations);
+  domUpdates.displayPastTrips(currentTraveler, travelerDestinations);
 }
 
 
