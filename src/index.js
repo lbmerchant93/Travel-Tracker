@@ -184,7 +184,6 @@ function retrieveNewTripCost() {
   let tripWithAgentFee = plannedTrip.cost + currentTraveler.calcAgentFee(plannedTrip.cost);
   let totalForTrip = tripWithAgentFee.toFixed(2);
   domUpdates.displayNewTripCost(totalForTrip, allInputs);
-  document.querySelector(".submit-request").disabled = false;
 }
 
 function instantiateNewTrip() {

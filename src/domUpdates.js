@@ -127,7 +127,8 @@ let domUpdates = {
     document.querySelector(".enter-duration").value = "";
     document.querySelector(".number-travelers").value = "";
     document.querySelector(".possible-destination").value = "0";
-
+    document.querySelector(".submit-request").disabled = true;
+    document.querySelector(".calc-cost").disabled = true;
   }
 
 }

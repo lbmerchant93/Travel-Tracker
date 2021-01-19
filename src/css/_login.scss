@@ -1,7 +1,7 @@
 .login-article {
   align-self: center;
   @include flex(column);
-  height: 250px;
+  height: 300px;
   width: 200px;
   border: $primary-border;
 }
@@ -27,7 +27,7 @@ label {
   font-size: small;
 }
 
-img {
+.plane-img {
   align-self: center;
   height: 50px;
   width: 50px;
