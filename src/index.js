@@ -44,43 +44,44 @@ function checkLoginInputsEnableSubmit() {
   };
 }
 
-let example;
-let loginTrav;
-let found;
 
 function submitLoginInfo() {
   let splitID = parseInt(username.value.slice(8));
   fetchData.retrieveTravelers()
   .then(data => {
     allTravelers = data;
-    found = allTravelers.travelers.find(traveler => traveler.id === splitID);
+    let found = allTravelers.travelers.find(traveler => traveler.id === splitID);
     if (password.value === "travel2020" && username.value.includes("traveler") && found !== undefined) {
-      console.log('merp')
       document.querySelector(".login-article").classList.add("hidden");
       document.querySelector(".main-dashboard").classList.remove("hidden");
-      gatherAPIInfo(splitID);
+      retrieveTraveler(splitID)
     } else {
-      let errorMsg = document.querySelector(".error-msg");
-      errorMsg.innerText = `**Username or password not recognized please try again**`
+      domUpdates.displayLoginError();
     };
+  });
+}
+
+function retrieveTraveler(id) {
+  fetchData.retrieveSpecificTraveler(id)
+  .then(data => {
+    currentTraveler = new Traveler(data);
+    gatherAPIInfo();
   });
 }
 
 
 function gatherAPIInfo(id) {
   Promise.all([fetchData.retrieveDestinations(),
-     // fetchData.retrieveTravelers(),
-      fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(id)])
+      fetchData.retrieveTrips()])
     .then(data => {
       allDestinations = data[0];
-      // allTravelers = data[1];
       allTrips = data[1];
-      currentTraveler = new Traveler(data[2]);
       domUpdates.populateDestinationsInput(allDestinations);
       filterForTraveler();
       catagorizeTrips();
       greetTraveler(currentTraveler);
       displayTravelerTrips();
+      allTrips.trips.forEach(trip => console.log(trip.id))
     })
 }
 
@@ -208,6 +209,7 @@ function instantiateNewTrip() {
 function submitRequest() {
   fetchData.addNewTripForTraveler(tripObj)
     .then(data => {
+      console.log(data)
       gatherAPIInfo();
     });
   domUpdates.removeTripCostAfterRequestedClearInputs();
@@ -218,7 +220,7 @@ function submitRequest() {
 
 // delete fetch request, not implemented yet just used when creating too many new trips when figuring out post request
 function deleteTrip() {
-  return fetch(`http://localhost:3001/api/v1/trips/<id>`, {
+  return fetch(`http://localhost:3001/api/v1/trips/202`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json'

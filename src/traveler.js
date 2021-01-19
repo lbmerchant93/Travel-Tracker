@@ -10,6 +10,7 @@ class Traveler {
   }
 
   getFirstName() {
+    console.log(this.name)
     let splitName = this.name.split(' ', 2);
     let firstName = splitName[0];
     return firstName;
