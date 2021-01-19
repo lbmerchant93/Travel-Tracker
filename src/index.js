@@ -36,42 +36,43 @@ allInputs.forEach(input => {
 })
 
 function checkLoginInputsEnableSubmit() {
-  if (password.value != "" & username.value.length > 8) {
+  if (password.value !== "" & username.value.length > 8) {
     submitLogin.disabled = false;
   } else {
     submitLogin.disabled = true;
-  };
+  }
 }
 
 
 function submitLoginInfo() {
   let splitID = parseInt(username.value.slice(8));
   fetchData.retrieveTravelers()
-  .then(data => {
-    allTravelers = data;
-    let found = allTravelers.travelers.find(traveler => traveler.id === splitID);
-    if (password.value === "travel2020" && username.value.includes("traveler") && found !== undefined) {
-      document.querySelector(".login-article").classList.add("hidden");
-      document.querySelector(".main-dashboard").classList.remove("hidden");
-      retrieveTraveler(splitID)
-    } else {
-      domUpdates.displayLoginError();
-    };
-  });
+    .then(data => {
+      allTravelers = data;
+      let found = allTravelers.travelers.find(traveler => traveler.id === splitID);
+      if (password.value === "travel2020" && username.value.includes("traveler") && found !== undefined) {
+        document.querySelector(".login-article").classList.add("hidden");
+        document.querySelector(".main-dashboard").classList.remove("hidden");
+        retrieveTraveler(splitID)
+      } else {
+        domUpdates.displayLoginError();
+      }
+    });
 }
 
 function retrieveTraveler(id) {
   fetchData.retrieveSpecificTraveler(id)
-  .then(data => {
-    currentTraveler = new Traveler(data);
-    gatherAPIInfo();
-  });
+    .then(data => {
+      currentTraveler = new Traveler(data);
+      gatherAPIInfo();
+    });
 }
 
 
-function gatherAPIInfo(id) {
+function gatherAPIInfo() {
   Promise.all([fetchData.retrieveDestinations(),
-      fetchData.retrieveTrips()])
+      fetchData.retrieveTrips()
+    ])
     .then(data => {
       allDestinations = data[0];
       allTrips = data[1];
@@ -105,10 +106,11 @@ function filterTripsForTraveler() {
     return trip.userID === currentTraveler.id;
   })
   travelerTrips = foundTrips.map(trip => {
+
     let tripInstantiation = new Trip(trip);
     return tripInstantiation;
   })
-};
+}
 
 // Assign Traveler's Trips to correct area
 function catagorizeTrips() {
@@ -117,6 +119,7 @@ function catagorizeTrips() {
 }
 
 function getTravelerPendingTrips() {
+  currentTraveler.pendingTrips = [];
   travelerTrips.forEach(trip => {
     if (trip.status === "pending") {
       currentTraveler.addTrip('pendingTrips', trip);
@@ -125,6 +128,9 @@ function getTravelerPendingTrips() {
 }
 
 function assignTripsToCorrectCatagory() {
+  currentTraveler.pastTrips = [];
+  currentTraveler.upcomingTrips = [];
+  currentTraveler.currentTrips = [];
   travelerTrips.forEach(trip => {
     let dateSplit = trip.date.split("/");
     let startDate = new Date(dateSplit[0], (dateSplit[1] - 1), dateSplit[2])
@@ -155,7 +161,7 @@ function filterDestinationsByTravelerTrips() {
   travelerDestinations = foundDestinations.map(dest => {
     return new Destination(dest)
   })
-};
+}
 
 function displayTravelerTrips() {
   domUpdates.displayCurrentTravelerTrip(currentTraveler, travelerDestinations);
@@ -165,9 +171,9 @@ function displayTravelerTrips() {
 }
 
 function checkIfAllFilledOut() {
-  if (allInputs[1].value != "" && allInputs[2].value != "") {
+  if (allInputs[1].value !== "" && allInputs[2].value !== "") {
     calcNewTripCost.disabled = false;
-  };
+  }
 }
 
 function retrieveNewTripCost() {
@@ -176,7 +182,7 @@ function retrieveNewTripCost() {
   allDestinations.destinations.forEach(dest => {
     if (dest.id === plannedTrip.destinationID) {
       plannedTrip.getCostOfTrip(dest);
-    };
+    }
   });
   let tripWithAgentFee = plannedTrip.cost + currentTraveler.calcAgentFee(plannedTrip.cost);
   let totalForTrip = tripWithAgentFee.toFixed(2);
@@ -206,9 +212,7 @@ function instantiateNewTrip() {
 
 function submitRequest() {
   fetchData.addNewTripForTraveler(tripObj)
-    .then(data => {
-      gatherAPIInfo();
-    });
+    .then(gatherAPIInfo());
   domUpdates.removeTripCostAfterRequestedClearInputs();
 }
 
@@ -216,8 +220,8 @@ function submitRequest() {
 
 
 // delete fetch request, not implemented yet just used when creating too many new trips when figuring out post request
-function deleteTrip() {
-  return fetch(`http://localhost:3001/api/v1/trips/202`, {
+function deleteTrip(id) {
+  return fetch(`http://localhost:3001/api/v1/trips/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json'

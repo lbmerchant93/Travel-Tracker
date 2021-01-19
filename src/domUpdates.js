@@ -1,8 +1,3 @@
-let upcomingTravelerTrips = document.querySelector(".upcoming-trips");
-let currentTravelerTrips = document.querySelector(".current-trips");
-let pendingTravelerTrips = document.querySelector(".pending-trips");
-let pastTravelerTrips = document.querySelector(".past-trips");
-
 let domUpdates = {
   displayLoginError() {
     let errorMsg = document.querySelector(".error-msg");
@@ -31,7 +26,7 @@ let domUpdates = {
     let current = document.querySelector(".current-trip");
     current.innerHTML = "";
     if (traveler.currentTrips[0] === undefined) {
-      current.innerHTML = `<p>You shouldn\'t be on a trip right now. Maybe you should plan your next one if you don\'t have any upcoming trips either!!</p>`
+      current.innerHTML = `<p>You shouldn't be on a trip right now. Maybe you should plan your next one if you don't have any upcoming trips either!!</p>`
     } else {
       let foundDest = findDestinationBasedOnTrip(traveler.currentTrips[0], destinations);
       let splitDestName = foundDest.destination.split(", ");
@@ -48,7 +43,7 @@ let domUpdates = {
     let upcoming = document.querySelector(".upcoming-trips-container");
     upcoming.innerHTML = "";
     if (traveler.upcomingTrips[0] === undefined) {
-      upcoming.innerHTML = `<p>You don\'t have any upcoming trips, fill out the form above to plan your next trip!!</p>`
+      upcoming.innerHTML = `<p>You don't have any upcoming trips, fill out the form above to plan your next trip!!</p>`
     } else {
       traveler.upcomingTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
@@ -67,7 +62,7 @@ let domUpdates = {
     let pending = document.querySelector(".pending-trips-container");
     pending.innerHTML = "";
     if (traveler.pendingTrips[0] === undefined) {
-      pending.innerHTML = `<p>You don\'t have any pending trips, fill out the form above to plan your next trip!!</p>`
+      pending.innerHTML = `<p>You don't have any pending trips, fill out the form above to plan your next trip!!</p>`
     } else {
       traveler.pendingTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
@@ -86,7 +81,7 @@ let domUpdates = {
     let past = document.querySelector(".past-trips-container");
     past.innerHTML = "";
     if (traveler.pastTrips[0] === undefined) {
-      past.innerHTML = `<p>You don\'t have any past trips, fill out the form above to plan your next trip!!</p>`
+      past.innerHTML = `<p>You don't have any past trips, fill out the form above to plan your next trip!!</p>`
     } else {
       traveler.pastTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
@@ -115,7 +110,7 @@ let domUpdates = {
 
   displayNewTripCost(cost, inputs) {
     let newTripCost = document.querySelector(".new-trip-cost");
-    if (inputs[0].value != "" && inputs[3].value != "0") {
+    if (inputs[0].value !== "" && inputs[3].value !== "0") {
       newTripCost.innerHTML = `<p> This trip will cost $${cost} (including the agent fee) <p>`;
       document.querySelector(".submit-request").disabled = false;
     } else if (inputs[0].value === "") {
@@ -125,7 +120,7 @@ let domUpdates = {
     }
   },
 
-  removeTripCostAfterRequestedClearInputs(){
+  removeTripCostAfterRequestedClearInputs() {
     document.querySelector(".new-trip-cost").innerHTML = "";
     document.querySelector(".select-date").value = "";
     document.querySelector(".enter-duration").value = "";

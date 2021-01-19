@@ -13,16 +13,17 @@
   font-size: large;
 }
 
-label,
-input {
+input,
+label {
   display: block;
   margin: 5px;
 }
 
-.username,
-.password {
+.password,
+.username {
   margin: 5px;
 }
+
 .error-msg {
   text-align: center;
   font-size: small;

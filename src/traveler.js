@@ -24,7 +24,7 @@ class Traveler {
     return tripsPerYear
   }
 
-  tripCosts(trips, destinations) {
+  tripCosts(trips) {
     let spent = trips.reduce((acc, trip) => {
       acc += trip.cost
       return acc;

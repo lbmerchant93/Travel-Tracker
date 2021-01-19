@@ -20,10 +20,7 @@ body {
 .main-dashboard {
   display: grid;
   grid-template-columns: 1fr 5fr;
-  grid-template-areas: "header header"
-  "request request"
-  "aside main"
-  "footer footer";
+  grid-template-areas: "header header" "request request" "aside main" "footer footer";
 }
 
 header {
