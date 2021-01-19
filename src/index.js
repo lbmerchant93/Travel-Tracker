@@ -25,7 +25,6 @@ let submitLogin = document.querySelector(".submit-login");
 let submitTripRequest = document.querySelector(".submit-request");
 let username = document.querySelector(".username");
 
-// window.addEventListener("load", gatherAPIInfo);
 calcNewTripCost.addEventListener("click", retrieveNewTripCost);
 password.addEventListener("keyup", checkLoginInputsEnableSubmit);
 submitLogin.addEventListener("click", submitLoginInfo)
@@ -81,7 +80,6 @@ function gatherAPIInfo(id) {
       catagorizeTrips();
       greetTraveler(currentTraveler);
       displayTravelerTrips();
-      allTrips.trips.forEach(trip => console.log(trip.id))
     })
 }
 
@@ -209,7 +207,6 @@ function instantiateNewTrip() {
 function submitRequest() {
   fetchData.addNewTripForTraveler(tripObj)
     .then(data => {
-      console.log(data)
       gatherAPIInfo();
     });
   domUpdates.removeTripCostAfterRequestedClearInputs();

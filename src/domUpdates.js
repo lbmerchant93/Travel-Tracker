@@ -51,7 +51,6 @@ let domUpdates = {
       upcoming.innerHTML = `<p>You don\'t have any upcoming trips, fill out the form above to plan your next trip!!</p>`
     } else {
       traveler.upcomingTrips.forEach(trip => {
-        console.log(trip)
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
         let splitDestName = foundDest.destination.split(", ");
         let dateSplit = trip.date.split("/");
