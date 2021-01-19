@@ -26,3 +26,10 @@ label {
   text-align: center;
   font-size: small;
 }
+
+img {
+  align-self: center;
+  height: 50px;
+  width: 50px;
+  background: $primary-background;
+}

@@ -1,3 +1,5 @@
+import './images/plane.png';
+
 import './css/base.scss';
 
 import fetchData from './fetchRequest.js';
