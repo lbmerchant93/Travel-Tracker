@@ -20,23 +20,61 @@ let travelerDestinations;
 
 let allInputs = document.querySelectorAll(".input");
 let calcNewTripCost = document.querySelector(".calc-cost");
+let password = document.querySelector(".password");
+let submitLogin = document.querySelector(".submit-login");
 let submitTripRequest = document.querySelector(".submit-request");
+let username = document.querySelector(".username");
 
-window.addEventListener("load", gatherAPIInfo);
 calcNewTripCost.addEventListener("click", retrieveNewTripCost);
+password.addEventListener("keyup", checkLoginInputsEnableSubmit);
+submitLogin.addEventListener("click", submitLoginInfo)
+username.addEventListener("keyup", checkLoginInputsEnableSubmit);
 submitTripRequest.addEventListener("click", submitRequest);
 allInputs.forEach(input => {
   input.addEventListener("keyup", checkIfAllFilledOut);
   input.addEventListener("click", checkIfAllFilledOut);
 })
 
-function gatherAPIInfo() {
-  Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(3)])
+function checkLoginInputsEnableSubmit() {
+  if (password.value != "" & username.value.length > 8) {
+    submitLogin.disabled = false;
+  } else {
+    submitLogin.disabled = true;
+  };
+}
+
+
+function submitLoginInfo() {
+  let splitID = parseInt(username.value.slice(8));
+  fetchData.retrieveTravelers()
+  .then(data => {
+    allTravelers = data;
+    let found = allTravelers.travelers.find(traveler => traveler.id === splitID);
+    if (password.value === "travel2020" && username.value.includes("traveler") && found !== undefined) {
+      document.querySelector(".login-article").classList.add("hidden");
+      document.querySelector(".main-dashboard").classList.remove("hidden");
+      retrieveTraveler(splitID)
+    } else {
+      domUpdates.displayLoginError();
+    };
+  });
+}
+
+function retrieveTraveler(id) {
+  fetchData.retrieveSpecificTraveler(id)
+  .then(data => {
+    currentTraveler = new Traveler(data);
+    gatherAPIInfo();
+  });
+}
+
+
+function gatherAPIInfo(id) {
+  Promise.all([fetchData.retrieveDestinations(),
+      fetchData.retrieveTrips()])
     .then(data => {
       allDestinations = data[0];
-      allTravelers = data[1];
-      allTrips = data[2];
-      currentTraveler = new Traveler(data[3]);
+      allTrips = data[1];
       domUpdates.populateDestinationsInput(allDestinations);
       filterForTraveler();
       catagorizeTrips();
@@ -48,7 +86,8 @@ function gatherAPIInfo() {
 function greetTraveler(traveler) {
   domUpdates.welcomeTraveler(traveler);
   domUpdates.getTodaysDate();
-  let tripCosts = traveler.tripCosts(travelerTrips, travelerDestinations, 2020);
+  let trips2020 = traveler.filterTripsByYear(2020, travelerTrips);
+  let tripCosts = traveler.tripCosts(trips2020, travelerDestinations);
   let agentFee = traveler.calcAgentFee(tripCosts);
   let sumSpent = tripCosts + agentFee;
   domUpdates.displayTotalTravelerSpendings(sumSpent.toFixed(2))
@@ -127,8 +166,8 @@ function displayTravelerTrips() {
 
 function checkIfAllFilledOut() {
   if (allInputs[1].value != "" && allInputs[2].value != "") {
-    calcNewTripCost.disabled = false
-  }
+    calcNewTripCost.disabled = false;
+  };
 }
 
 function retrieveNewTripCost() {
@@ -178,7 +217,7 @@ function submitRequest() {
 
 // delete fetch request, not implemented yet just used when creating too many new trips when figuring out post request
 function deleteTrip() {
-  return fetch(`http://localhost:3001/api/v1/trips/<id>`, {
+  return fetch(`http://localhost:3001/api/v1/trips/202`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json'

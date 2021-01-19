@@ -1,10 +1,12 @@
-.request-trip-container{
+.request-trip-container {
   grid-area: request;
   border: $primary-border;
+  margin: 0 10px 0 10px;
   padding: 5px;
   display: grid;
   grid-template-rows: 5fr 5fr;
 }
+
 .input-options {
   @include flex(row);
 }

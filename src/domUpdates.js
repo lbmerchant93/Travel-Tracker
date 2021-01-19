@@ -1,15 +1,14 @@
-// QuerySelectors
 let upcomingTravelerTrips = document.querySelector(".upcoming-trips");
 let currentTravelerTrips = document.querySelector(".current-trips");
 let pendingTravelerTrips = document.querySelector(".pending-trips");
 let pastTravelerTrips = document.querySelector(".past-trips");
-// let calcNewTripCost = document.querySelector(".calc-cost");
-// calcNewTripCost.addEventListener("click", retrieveNewTripCost);
 
-// Functions to update the DOM go here
 let domUpdates = {
+  displayLoginError() {
+    let errorMsg = document.querySelector(".error-msg");
+    errorMsg.innerText = `**Username or password not recognized please try again**`
+  },
 
-  // Greet Traveler
   welcomeTraveler(traveler) {
     let welcomeMessage = document.querySelector(".welcome-message");
     welcomeMessage.innerText = `Welcome back ${traveler.getFirstName()}!!`
@@ -38,9 +37,9 @@ let domUpdates = {
       let splitDestName = foundDest.destination.split(", ");
       let dateSplit = traveler.currentTrips[0].date.split("/");
       current.innerHTML = `<div class="current card">
-        <img class="card-image" src="${destination.image}" alt="${destination.alt}">
+        <img class="card-image" src="${foundDest.image}" alt="${foundDest.alt}">
         <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
-        <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${trip.duration} <br> Number of travelers: ${traveler.currentTrips[0].travelers}</p>
+        <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${traveler.currentTrips[0].duration} <br> Number of travelers: ${traveler.currentTrips[0].travelers}</p>
       </div>`
     }
   },
@@ -49,7 +48,7 @@ let domUpdates = {
     let upcoming = document.querySelector(".upcoming-trips-container");
     upcoming.innerHTML = "";
     if (traveler.upcomingTrips[0] === undefined) {
-      upcoming.innerHTML = `<p>You don\'t have any upcoming trips, click PLAN A TRIP to plan your next trip!!</p>`
+      upcoming.innerHTML = `<p>You don\'t have any upcoming trips, fill out the form above to plan your next trip!!</p>`
     } else {
       traveler.upcomingTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
@@ -68,7 +67,7 @@ let domUpdates = {
     let pending = document.querySelector(".pending-trips-container");
     pending.innerHTML = "";
     if (traveler.pendingTrips[0] === undefined) {
-      pending.innerHTML = `<p>You don\'t have any pending trips, click PLAN A TRIP to plan your next trip!!</p>`
+      pending.innerHTML = `<p>You don\'t have any pending trips, fill out the form above to plan your next trip!!</p>`
     } else {
       traveler.pendingTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
@@ -87,7 +86,7 @@ let domUpdates = {
     let past = document.querySelector(".past-trips-container");
     past.innerHTML = "";
     if (traveler.pastTrips[0] === undefined) {
-      past.innerHTML = `<p>You don\'t have any past trips, click PLAN A TRIP to plan your next trip!!</p>`
+      past.innerHTML = `<p>You don\'t have any past trips, fill out the form above to plan your next trip!!</p>`
     } else {
       traveler.pastTrips.forEach(trip => {
         let foundDest = findDestinationBasedOnTrip(trip, destinations);
@@ -118,6 +117,7 @@ let domUpdates = {
     let newTripCost = document.querySelector(".new-trip-cost");
     if (inputs[0].value != "" && inputs[3].value != "0") {
       newTripCost.innerHTML = `<p> This trip will cost $${cost} (including the agent fee) <p>`;
+      document.querySelector(".submit-request").disabled = false;
     } else if (inputs[0].value === "") {
       newTripCost.innerHTML = `<p>Please select a date!</p>`;
     } else if (inputs[3].value === "0") {

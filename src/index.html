@@ -10,64 +10,73 @@
 </head>
 
 <body>
-  <header>
-    <div class="title">
-      <h1 class="site-title">Travel<br />Tracker</h1>
-      <h2 class="todays-date"></h2>
-    </div>
-    <div class="greeting">
-      <h2 class="welcome-message"></h2>
-      <h3 class="total-spent"></h3>
-    </div>
-  </header>
-  <section class="request-trip-container">
-    <div class="input-options">
-      <label for="select-date">Select Start Date:<input type="date" class="select-date input" name="select-date" min="2021-01-01" max="2030-12-31" /></label>
-      <label for="enter-duration">Duration (in days):<input type="number" class="enter-duration input" name="enter-duration" min="1" placeholder="Duration" /></label>
-      <label for="number-travelers">Travelers:<input type="number" class="number-travelers input" name="number-travelers" min="1" placeholder="Travelers" /></label>
-      <label for="possible-destination">Choose A Destination:
-        <select class="possible-destination input" name="possible-destination">
-          <option class="option" value="0">
-            Choose Destination
-          </option>
-        </select>
-      </label>
-    </div>
-    <div class="new-trip-cost"></div>
-    <div class="button-wrapper">
-      <label for="calc-cost"><input type="submit" class="calc-cost" name="calc-cost" value="Calculate Trip Cost" disabled/></label>
-      <label for="submit"><input type="submit" class="submit-request" name="submit" value="Submit Request" disabled/></label>
-    </div>
+  <section class="login-article">
+    <p class="login-msg"><b>Adventure Awaits</b></p>
+    <label for="username">USERNAME: <input type="text" class="username" name="username" placeholder="USERNAME" /></label>
+    <label for="password">PASSWORD: <input type="password" class="password" name="password" placeholder="PASSWORD" /></label>
+    <label for="submit-login"><input type="submit" class="submit-login" name="submit-login" value="SIGN IN" disabled/></label>
+    <p class="error-msg"></p>
   </section>
-  <aside>
-    <div class="current-trips">
-      <h3 class="current-trips-title">CURRENT TRIP</h3>
-      <div class="current-trip">
+  <section class="main-dashboard hidden">
+    <header>
+      <div class="title">
+        <h1 class="site-title">Travel<br />Tracker</h1>
+        <h2 class="todays-date"></h2>
       </div>
-    </div>
-  </aside>
-  <main>
-    <section class="upcoming-trips">
-      <h3 class="upcoming-trips-title">UPCOMING TRIPS</h3>
-      <div class="upcoming-trips-container">
+      <div class="greeting">
+        <h2 class="welcome-message"></h2>
+        <h3 class="total-spent"></h3>
+      </div>
+    </header>
+    <section class="request-trip-container">
+      <div class="input-options">
+        <label for="select-date">Select Start Date:<input type="date" class="select-date input" name="select-date" min="2021-01-01" max="2030-12-31" /></label>
+        <label for="enter-duration">Duration (in days):<input type="number" class="enter-duration input" name="enter-duration" min="1" placeholder="Duration" /></label>
+        <label for="number-travelers">Travelers:<input type="number" class="number-travelers input" name="number-travelers" min="1" placeholder="Travelers" /></label>
+        <label for="possible-destination">Choose A Destination:
+          <select class="possible-destination input" name="possible-destination">
+            <option class="option" value="0">
+              Choose Destination
+            </option>
+          </select>
+        </label>
+      </div>
+      <div class="new-trip-cost"></div>
+      <div class="button-wrapper">
+        <label for="calc-cost"><input type="submit" class="calc-cost" name="calc-cost" value="Calculate Trip Cost" disabled /></label>
+        <label for="submit"><input type="submit" class="submit-request" name="submit" value="Submit Request" disabled /></label>
       </div>
     </section>
-    <section class="pending-trips">
-      <h3 class="pending-trips-title">PENDING TRIPS</h3>
-      <div class="pending-trips-container">
-    </section>
-    <section class="past-trips">
-      <h3 class="past-trips-title">PAST TRIPS</h3>
-      <div class="past-trips-container">
-    </section>
-  </main>
-  <footer>
-    <p>Contact An Agent</p>
-    <p>FAQs</p>
-    <p>Refer A Friend</p>
-    <p>Job Oppurtunities</p>
-    <p>Download App</p>
-  </footer>
+    <aside>
+      <div class="current-trips">
+        <h3 class="current-trips-title">CURRENT TRIP</h3>
+        <div class="current-trip">
+        </div>
+      </div>
+    </aside>
+    <main>
+      <section class="upcoming-trips">
+        <h3 class="upcoming-trips-title">UPCOMING TRIPS</h3>
+        <div class="upcoming-trips-container">
+        </div>
+      </section>
+      <section class="pending-trips">
+        <h3 class="pending-trips-title">PENDING TRIPS</h3>
+        <div class="pending-trips-container">
+      </section>
+      <section class="past-trips">
+        <h3 class="past-trips-title">PAST TRIPS</h3>
+        <div class="past-trips-container">
+      </section>
+    </main>
+    <footer>
+      <p>Contact An Agent</p>
+      <p>FAQs</p>
+      <p>Refer A Friend</p>
+      <p>Job Oppurtunities</p>
+      <p>Download App</p>
+    </footer>
+  </section>
 </body>
 
 </html>
