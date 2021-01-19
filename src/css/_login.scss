@@ -1,8 +1,6 @@
 .login-article {
   align-self: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @include flex(column);
   height: 250px;
   width: 200px;
   border: $primary-border;

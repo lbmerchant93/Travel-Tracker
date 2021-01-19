@@ -110,6 +110,7 @@ let domUpdates = {
 
   displayNewTripCost(cost, inputs) {
     let newTripCost = document.querySelector(".new-trip-cost");
+    newTripCost.classList.remove("hidden")
     if (inputs[0].value !== "" && inputs[3].value !== "0") {
       newTripCost.innerHTML = `<p> This trip will cost $${cost} (including the agent fee) <p>`;
       document.querySelector(".submit-request").disabled = false;
@@ -121,11 +122,12 @@ let domUpdates = {
   },
 
   removeTripCostAfterRequestedClearInputs() {
-    document.querySelector(".new-trip-cost").innerHTML = "";
+    document.querySelector(".new-trip-cost").classList.add("hidden");
     document.querySelector(".select-date").value = "";
     document.querySelector(".enter-duration").value = "";
     document.querySelector(".number-travelers").value = "";
     document.querySelector(".possible-destination").value = "0";
+
   }
 
 }

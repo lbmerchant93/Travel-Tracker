@@ -94,25 +94,21 @@ function greetTraveler(traveler) {
   domUpdates.displayTotalTravelerSpendings(sumSpent.toFixed(2))
 }
 
-// Filter Trips and Destinations for TRAVELERS
 function filterForTraveler() {
   filterTripsForTraveler();
   filterDestinationsByTravelerTrips();
 }
 
-// Filter Trips Matching Traveler's id
 function filterTripsForTraveler() {
   let foundTrips = allTrips.trips.filter(trip => {
     return trip.userID === currentTraveler.id;
   })
   travelerTrips = foundTrips.map(trip => {
-
     let tripInstantiation = new Trip(trip);
     return tripInstantiation;
   })
 }
 
-// Assign Traveler's Trips to correct area
 function catagorizeTrips() {
   getTravelerPendingTrips();
   assignTripsToCorrectCatagory();
@@ -147,7 +143,6 @@ function assignTripsToCorrectCatagory() {
   })
 }
 
-// Filter Destinations Matching Traveler's Trips
 function filterDestinationsByTravelerTrips() {
   let foundDestinations = [];
   travelerTrips.forEach(trip => {
@@ -216,9 +211,6 @@ function submitRequest() {
   domUpdates.removeTripCostAfterRequestedClearInputs();
 }
 
-
-
-
 // delete fetch request, not implemented yet just used when creating too many new trips when figuring out post request
 function deleteTrip(id) {
   return fetch(`http://localhost:3001/api/v1/trips/${id}`, {
@@ -232,10 +224,5 @@ function deleteTrip(id) {
       alert("Sorry! We are having trouble getting the data, try again later!")
     })
 }
-
-
-
-
-
 
 //

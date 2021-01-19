@@ -8,9 +8,7 @@
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @include flex(column);
   margin: 5px;
   padding: 10px;
   min-height: 250px;

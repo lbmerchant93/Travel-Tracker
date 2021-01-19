@@ -1,6 +1,6 @@
 @import "variables";
-@import "login";
 @import "mixins";
+@import "login";
 @import "cards";
 @import "inputField";
 
@@ -93,11 +93,14 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  flex-wrap: wrap;
 }
 
 button {
   cursor: pointer;
 }
+
+@import "mediaQueries";
 
 .hidden {
   display: none;
