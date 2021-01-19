@@ -38,9 +38,9 @@ let domUpdates = {
       let splitDestName = foundDest.destination.split(", ");
       let dateSplit = traveler.currentTrips[0].date.split("/");
       current.innerHTML = `<div class="current card">
-        <img class="card-image" src="${destination.image}" alt="${destination.alt}">
+        <img class="card-image" src="${foundDest.image}" alt="${foundDest.alt}">
         <h4 class="trip-destination">${splitDestName[0]},<br> ${splitDestName[1]}</h4>
-        <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${trip.duration} <br> Number of travelers: ${traveler.currentTrips[0].travelers}</p>
+        <p class="details">Trip start date: ${dateSplit[1]}/${dateSplit[2]}/${dateSplit[0]}<br> Duration of trip: ${traveler.currentTrips[0].duration} <br> Number of travelers: ${traveler.currentTrips[0].travelers}</p>
       </div>`
     }
   },

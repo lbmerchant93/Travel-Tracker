@@ -25,7 +25,7 @@ let submitLogin = document.querySelector(".submit-login");
 let submitTripRequest = document.querySelector(".submit-request");
 let username = document.querySelector(".username");
 
-window.addEventListener("load", gatherAPIInfo);
+// window.addEventListener("load", gatherAPIInfo);
 calcNewTripCost.addEventListener("click", retrieveNewTripCost);
 password.addEventListener("keyup", checkLoginInputsEnableSubmit);
 submitLogin.addEventListener("click", submitLoginInfo)
@@ -37,7 +37,7 @@ allInputs.forEach(input => {
 })
 
 function checkLoginInputsEnableSubmit() {
-  if (password.value != "" & username.value.length > 8 && username.value.includes("traveler")) {
+  if (password.value != "" & username.value.length > 8) {
     submitLogin.disabled = false;
   } else {
     submitLogin.disabled = true;
@@ -52,24 +52,30 @@ function submitLoginInfo() {
   let splitID = parseInt(username.value.slice(8));
   fetchData.retrieveTravelers()
   .then(data => {
-    example = data;
-    found = example.travelers.find(traveler => traveler.id === splitID);
-    if (password.value === "travel2020" && found !== undefined) {
+    allTravelers = data;
+    found = allTravelers.travelers.find(traveler => traveler.id === splitID);
+    if (password.value === "travel2020" && username.value.includes("traveler") && found !== undefined) {
       console.log('merp')
+      document.querySelector(".login-article").classList.add("hidden");
+      document.querySelector(".main-dashboard").classList.remove("hidden");
+      gatherAPIInfo(splitID);
     } else {
-      console.log("Username or password not recognized")
+      let errorMsg = document.querySelector(".error-msg");
+      errorMsg.innerText = `**Username or password not recognized please try again**`
     };
   });
 }
 
 
-function gatherAPIInfo() {
-  Promise.all([fetchData.retrieveDestinations(), fetchData.retrieveTravelers(), fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(3)])
+function gatherAPIInfo(id) {
+  Promise.all([fetchData.retrieveDestinations(),
+     // fetchData.retrieveTravelers(),
+      fetchData.retrieveTrips(), fetchData.retrieveSpecificTraveler(id)])
     .then(data => {
       allDestinations = data[0];
-      allTravelers = data[1];
-      allTrips = data[2];
-      currentTraveler = new Traveler(data[3]);
+      // allTravelers = data[1];
+      allTrips = data[1];
+      currentTraveler = new Traveler(data[2]);
       domUpdates.populateDestinationsInput(allDestinations);
       filterForTraveler();
       catagorizeTrips();

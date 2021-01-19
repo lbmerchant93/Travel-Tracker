@@ -7,6 +7,7 @@
   width: 200px;
   border: $primary-border;
 }
+
 .login-msg {
   text-align: center;
   font-size: large;
@@ -21,4 +22,8 @@ input {
 .username,
 .password {
   margin: 5px;
+}
+.error-msg {
+  text-align: center;
+  font-size: small;
 }
