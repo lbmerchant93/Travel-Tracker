@@ -33,6 +33,9 @@ In a seperate tab in your terminal:
 
 Now you can navigate to http://localhost:8080/ and it should be live
 
+OR
+
+visit the deployed site [here](https://lbmerchant93.github.io/Travel-Tracker/)
 
 ## Planning
 I utilized Github Projects and miro for project management, that board can be found [here](https://github.com/lbmerchant93/Travel-Tracker/projects/1)
