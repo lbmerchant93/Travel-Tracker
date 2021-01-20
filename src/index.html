@@ -12,9 +12,10 @@
 <body>
   <section class="login-article">
     <p class="login-msg"><b>Adventure Awaits</b></p>
+    <img class="plane-img" src="../images/plane.png" alt="plane icon" />
     <label for="username">USERNAME: <input type="text" class="username" name="username" placeholder="USERNAME" /></label>
     <label for="password">PASSWORD: <input type="password" class="password" name="password" placeholder="PASSWORD" /></label>
-    <label for="submit-login"><input type="submit" class="submit-login" name="submit-login" value="SIGN IN" disabled/></label>
+    <label for="submit-login"><input type="submit" class="submit-login" name="submit-login" value="SIGN IN" disabled /></label>
     <p class="error-msg"></p>
   </section>
   <section class="main-dashboard hidden">
@@ -41,7 +42,7 @@
           </select>
         </label>
       </div>
-      <div class="new-trip-cost"></div>
+      <div class="new-trip-cost hidden"></div>
       <div class="button-wrapper">
         <label for="calc-cost"><input type="submit" class="calc-cost" name="calc-cost" value="Calculate Trip Cost" disabled /></label>
         <label for="submit"><input type="submit" class="submit-request" name="submit" value="Submit Request" disabled /></label>

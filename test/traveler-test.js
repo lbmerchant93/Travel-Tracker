@@ -83,27 +83,27 @@ describe('Traveler', () => {
 
   it('should have a method to filter the trips by a given year', () => {
     expect(traveler1.filterTripsByYear(2020, sampleTrips)).to.deep.equal([{
-        id: 117,
-        userID: 1,
-        destinationID: 1,
-        travelers: 3,
-        cost: 0,
-        date: '2020/01/09',
-        duration: 15,
-        status: 'approved',
-        suggestedActivities: []
-      },
-      {
-        id: 166,
-        userID: 1,
-        destinationID: 7,
-        travelers: 2,
-        cost: 0,
-        date: '2020/03/05',
-        duration: 6,
-        status: 'approved',
-        suggestedActivities: []
-      }
+      id: 117,
+      userID: 1,
+      destinationID: 1,
+      travelers: 3,
+      cost: 0,
+      date: '2020/01/09',
+      duration: 15,
+      status: 'approved',
+      suggestedActivities: []
+    },
+    {
+      id: 166,
+      userID: 1,
+      destinationID: 7,
+      travelers: 2,
+      cost: 0,
+      date: '2020/03/05',
+      duration: 6,
+      status: 'approved',
+      suggestedActivities: []
+    }
     ])
   })
 

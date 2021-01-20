@@ -1,16 +1,14 @@
 .current-trip,
-.upcoming-trips-container,
+.past-trips-container,
 .pending-trips-container,
-.past-trips-container {
+.upcoming-trips-container {
   @include flex(row);
   flex-wrap: wrap;
   margin: 0;
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @include flex(column);
   margin: 5px;
   padding: 10px;
   min-height: 250px;
@@ -19,11 +17,12 @@
   max-width: 200px;
   border: $primary-border;
 }
-.trip-destination,
-.details {
-  margin: 0;
-  margin-top: 15px;
+
+.details,
+.trip-destination {
+  margin: 15px 0 0;
 }
+
 .card-image {
   max-width: auto;
   max-height: 50%;

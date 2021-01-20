@@ -1,9 +1,7 @@
 .login-article {
   align-self: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 250px;
+  @include flex(column);
+  height: 300px;
   width: 200px;
   border: $primary-border;
 }
@@ -13,17 +11,25 @@
   font-size: large;
 }
 
-label,
-input {
+input,
+label {
   display: block;
   margin: 5px;
 }
 
-.username,
-.password {
+.password,
+.username {
   margin: 5px;
 }
+
 .error-msg {
   text-align: center;
   font-size: small;
+}
+
+.plane-img {
+  align-self: center;
+  height: 50px;
+  width: 50px;
+  background: $primary-background;
 }
