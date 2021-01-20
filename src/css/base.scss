@@ -1,67 +1,107 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: rgb(255, 221, 210);
-$primary-color: rgb(35, 61, 77);
-$primary-font: "Quicksand", sans-serif;
-
+@import "variables";
+@import "mixins";
+@import "login";
+@import "cards";
+@import "inputField";
 
 body {
   background: $primary-background;
   font-family: $primary-font;
+  font-weight: lighter;
+  display: flex;
+  justify-content: center;
   color: $primary-color;
-  display: grid;
-  grid-template-column: 1fr 4fr 4fr;
-  grid-template-areas:
-  "header header header"
-  "aside main main"
-  "footer footer footer";
   height: 100vh;
   width: 100vw;
   margin: 0;
-padding: 0;
+  padding: 0;
+}
+
+.main-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-areas: "header header" "request request" "aside main" "footer footer";
 }
 
 header {
   grid-area: header;
-  padding: 0 10px 10px 10px;
-  max-height: 20vh;
+  padding: 0 10px 10px;
+  font-size: small;
   display: grid;
-  align-items: flex-end;
-  grid-template-columns: 1fr 4fr 1fr;
-  grid-template-areas:
-  "greeting plan title"
+  grid-template-columns: 3fr 3fr;
+  grid-template-areas: "greeting title";
 }
 
-.plan-trip {
-  max-height: 30px;
-  align-self: flex-end;
+.greeting {
+  grid-area: greeting;
+}
+
+.title {
+  grid-area: title;
+}
+
+.greeting,
+.title {
+  @include flex(column);
+  justify-content: flex-end;
+}
+
+.total-spent,
+.welcome-message {
+  margin: 0;
+  text-align: left;
+}
+
+.total-spent {
+  margin-top: 5px;
+  font-size: smaller;
+}
+
+.site-title,
+.todays-date {
+  margin: 0;
+  text-align: right;
 }
 
 aside {
   grid-area: aside;
-  padding: 10px 10px 0 10px;
-  border-left:  none;
+  padding: 10px 10px 0;
+  border-bottom: $primary-border;
+  min-width: 30vw;
 }
 
 main {
   grid-area: main;
-  padding: 10px 10px 0 10px;
-  border: 1px solid rgb(140, 173, 167)
+  padding: 10px;
+  border-bottom: $primary-border;
+  border-left: $primary-border;
+  max-width: 70vw;
 }
 
-.upcoming-trips-title,
+.current-trips-title,
+.past-trips-title,
 .pending-trips-title,
-.past-trips-title {
-  border: 1px solid rgb(140, 173, 167);
+.upcoming-trips-title {
+  text-align: center;
+  padding: 10px;
+  border: $primary-border;
 }
 
 footer {
   grid-area: footer;
+  margin: 10px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  flex-wrap: wrap;
 }
 
+button {
+  cursor: pointer;
+}
 
+@import "mediaQueries";
 
-
-//
+.hidden {
+  display: none;
+}

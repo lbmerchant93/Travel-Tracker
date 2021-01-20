@@ -1,0 +1,35 @@
+.login-article {
+  align-self: center;
+  @include flex(column);
+  height: 300px;
+  width: 200px;
+  border: $primary-border;
+}
+
+.login-msg {
+  text-align: center;
+  font-size: large;
+}
+
+input,
+label {
+  display: block;
+  margin: 5px;
+}
+
+.password,
+.username {
+  margin: 5px;
+}
+
+.error-msg {
+  text-align: center;
+  font-size: small;
+}
+
+.plane-img {
+  align-self: center;
+  height: 50px;
+  width: 50px;
+  background: $primary-background;
+}

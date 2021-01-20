@@ -1,0 +1,63 @@
+@media screen and (max-width: 800px) {
+  .input-options {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: 50vw;
+    justify-self: center;
+  }
+
+  select {
+    width: 140px;
+  }
+
+
+  .number-travelers {
+    grid-area: travelers;
+  }
+
+  .possible-destination {
+    grid-area: destination;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .main-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-areas: "header header" "request request" "aside aside" "main main" "footer footer";
+  }
+
+  aside {
+    border: none;
+  }
+
+  main {
+    border: none;
+    max-width: 100vw;
+  }
+
+}
+
+@media screen and (max-width: 600px) {
+  .input-options {
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 50vw;
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .input-options {
+    display: grid;
+    grid-template-columns: auto;
+    width: 50vw;
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .button-wrapper {
+    @include flex(column);
+  }
+}
