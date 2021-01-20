@@ -1,7 +1,7 @@
 let domUpdates = {
-  displayLoginError() {
+  displayLoginError(message) {
     let errorMsg = document.querySelector(".error-msg");
-    errorMsg.innerText = `**Username or password not recognized please try again**`
+    errorMsg.innerText = `${message}`
   },
 
   welcomeTraveler(traveler) {
