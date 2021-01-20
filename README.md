@@ -10,12 +10,14 @@ On load a login screen is displayed (see picture below). The user has two input 
 
 If it is correct, the dashboard will change to their profile page (see gif below). The user is greeted by their first name in the top left and the total amount they spent on traveling through the app in the year 2020 below the welcome message. If a user is suppose to be on a trip the "Current Trip" section will display the trip's information. Otherwise the user can see any upcoming, pending, or past trips in the same fashion in their respected sections.
 
-![Screen Change On Login](https://gph.is/g/Zlz1GoG)
-![User Profile](https://gph.is/g/am1WdRj)
+![Screen Change On Login](https://media.giphy.com/media/OIl3XbqTa0GtKepDqo/giphy.gif)
+
+
+![User Profile](https://media.giphy.com/media/sFKu0feWyYvdZIcjvH/giphy.gif)
 
 If a user wants to plan a new trip, they can input the date, number of travelers, duration of trip, and select from the list of possible destinations that they want to go to. Once all inputs are filled out, the "Calculate Trip Cost" button is enabled. Clicking this displays a message of how much it will cost in total, depending on the duration, number of travelers, cost of flights per person and cost of lodging per night. This total states that it includes a 10% agent fee. If the user likes the price, they now have the option to "Submit Request". This request is sent to the API and if successfull will instantly be populated into the upcoming and pending sections. An example below:
 
-![Add A New Trip Example](https://gph.is/g/Zlz1G5M)
+![Add A New Trip Example](https://media.giphy.com/media/yA6Pymb3YoOmNPC0Dp/giphy.gif)
 
 ## How to Install
 1. `git clone` it down to your command line
